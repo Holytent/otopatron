@@ -36,7 +36,9 @@ func _ready() -> void:
  _view.transparent_bg = true
  _view.own_world_3d = true
  _view.render_target_update_mode = SubViewport.UPDATE_ONCE
- _view.msaa_3d = Viewport.MSAA_2X
+ # The 320x220 render is shown at roughly 135-160 logical pixels, so it is always minified;
+ # multisample buffers only cost memory and a resolve per redraw here.
+ _view.msaa_3d = Viewport.MSAA_DISABLED
  add_child(_view)
  var world := Node3D.new()
  _view.add_child(world)

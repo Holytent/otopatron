@@ -139,7 +139,59 @@ func run() -> void:
 	for model in CarDB.MODELS: kinds[CarTurntable.kind_for(str(model["id"]))] = true
 	check(kinds.keys().all(func(k): return CarTurntable.MODELS.has(k)),"Every car maps to an imported showroom model")
 	check(kinds.size()>=6,"Showroom shows at least six distinct vehicle shapes")
+	# The splash opens the account dialog a moment after it finishes loading, and an open dialog
+	# pauses the showroom by design. Let that happen first so these checks start with none open.
+	for i in 600:
+		if not ("_loaded" in main._current) or main._current._loaded: break
+		await get_tree().process_frame
+	await get_tree().create_timer(0.6).timeout
+	for child in UI.overlay.get_children(): child.queue_free()
+	for i in 3: await get_tree().process_frame
+	display.position=Vector2.ZERO; display.size=Vector2(540,300)
+	await get_tree().process_frame
+	var running_clock: float=display._clock
+	await get_tree().process_frame
+	check(display._clock>running_clock,"Visible showroom keeps advancing")
+	var tap_point:=_empty_tap_point(main,display.get_global_rect())
+	var touch_down:=InputEventMouseButton.new(); touch_down.position=tap_point; touch_down.button_index=MOUSE_BUTTON_LEFT; touch_down.pressed=true
+	var touch_up:=InputEventMouseButton.new(); touch_up.position=tap_point; touch_up.button_index=MOUSE_BUTTON_LEFT; touch_up.pressed=false
+	var screen_touch:=InputEventScreenTouch.new(); screen_touch.position=tap_point; screen_touch.pressed=true
+	var before_touch: float=display._clock
+	get_viewport().push_input(touch_down); get_viewport().push_input(screen_touch); get_viewport().push_input(touch_up)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	check(display._clock>before_touch and UI.overlay.get_child_count()==0,"Touching empty scene space does not stop traffic or turntables")
+	display.hide()
+	await get_tree().process_frame
+	var hidden_clock: float=display._clock; var hidden_angle: float=display._platforms[0].angle
+	for i in 5: await get_tree().process_frame
+	check(display._clock==hidden_clock and display._platforms[0].angle==hidden_angle,"Hidden showroom stops advancing")
+	display.show()
+	await get_tree().process_frame
+	check(display._clock>hidden_clock and display._platforms[0].angle!=hidden_angle,"Showroom resumes after becoming visible")
+	Game._web_hidden=true
+	await get_tree().process_frame
+	var background_clock: float=display._clock
+	for i in 5: await get_tree().process_frame
+	check(display._clock==background_clock,"Backgrounded browser tab stops the showroom")
+	Game._web_hidden=false
+	var resumed:=false
+	for i in 30:
+		await get_tree().process_frame
+		if display._clock>background_clock:
+			resumed=true
+			break
+	if not resumed: print("Showroom stayed paused; open dialogs: ",UI.overlay.get_child_count()," visible: ",display.is_visible_in_tree())
+	check(resumed,"Showroom resumes after the tab returns")
 	display.queue_free()
 	print("LOBBY_AUDIT_COMPLETE ",checks," checks ",failures," failures")
 	await Fx.release_audio()
 	get_tree().quit(1 if failures else 0)
+func _empty_tap_point(root: Node, rect: Rect2) -> Vector2:
+	# A point over the showroom that no visible button covers, so the tap cannot open a dialog.
+	var buttons: Array = root.find_children("*","BaseButton",true,false).filter(func(b): return b.is_visible_in_tree())
+	for row in 6:
+		for column in 8:
+			var point: Vector2=rect.position+rect.size*Vector2((column+.5)/8.0,(row+.5)/6.0)
+			if not buttons.any(func(b): return b.get_global_rect().has_point(point)): return point
+	return rect.get_center()
