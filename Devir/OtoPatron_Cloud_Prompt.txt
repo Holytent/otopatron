@@ -1,4 +1,4 @@
-OtoPatron oyununu mevcut Godot kaynakları üzerinden geliştirmeye devam et. Bağladığım güncel GitHub deposunu oku, Devir/OtoPatron_Cloud_Devir_Notu.md ve kontrol raporlarını oku, sonra kaynakları incele. Bu depo Godot projesidir; yeni bir HTML oyun veya sıfırdan farklı oyun oluşturma.
+OtoPatron oyununu https://github.com/Holytent/otopatron deposundaki güncel Godot kaynakları üzerinden geliştirmeye devam et. Eski projendeki kodları başlangıç kabul etme. Bağladığım güncel GitHub deposunu oku, Devir/OtoPatron_Cloud_Devir_Notu.md ve kontrol raporlarını oku, sonra kaynakları incele. Bu depo Godot projesidir; yeni bir HTML oyun veya sıfırdan farklı oyun oluşturma.
 
 Durum: son doğrulanmış production1.9.40 https://otopatron.pages.dev/ . 1.9.41 ana yayına alınmadı. theme-preview.otopatron.pages.dev testinde araçlar hatalı kutu gövdeler olarak sergileniyor. Depoda bundan daha yeni kaynak var: Kenney CC0 GLB modellerine geçildi;48 galeri denetimi geçti fakat yeni gerçek3B modellerin tarayıcı görünümü henüz doğrulanmadı. Önce bunu tamamla, yapılmış sanma.
 
