@@ -6,8 +6,8 @@ Mobil araç galerisi simülatörü — Godot 4.7.2, GDScript, GL Compatibility.
 Önce [devir notunu](Devir/OtoPatron_Cloud_Devir_Notu.md) okuyun. [Claude promptu](Devir/OtoPatron_Cloud_Prompt.txt) ve geçmiş kontrol raporları Devir klasöründe.
 
 ## Durum
-Son doğrulanmış ana yayın **1.9.40**: https://otopatron.pages.dev/ . Bu depo **1.9.41 geliştirme adayıdır**; yayınlandığı anlamına gelmez.
-Gerçek GLB sergileme modellerinin tarayıcı görsel testi ve yeniden web export'u bekliyor. Son lobi denetimi48 kontrol/0 başarısız; eski süreç kapanışı kaynak uyarıları sürüyor. Fiziksel telefon testi yapılmadı.
+Son doğrulanmış ana yayın **1.9.41**: https://otopatron.pages.dev/ . Canlı paket hashleri ve tarayıcı görünümü kontrol edildi. Fiziksel telefon performansı ölçülmedi.
+Güncel kaynak dalı cloud/galeri-iyilestirme; PR #1 açık. Claude için [geliştirme planı](Devir/Claude_Gelistirme_Plani.md) esas alınır.
 
 ## Klasörler
 - OtoPatron: düzenlenebilir oyun, görseller, web yardımcıları ve Godot denetimleri.

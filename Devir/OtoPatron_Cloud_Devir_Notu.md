@@ -2,11 +2,10 @@
 Tarih: 9 Ekim 2026. Bu belge, mevcut kaynaklar ve build_tools kontrol raporlarına göre hazırlanmıştır.
 
 ## 1. Yayın ile geliştirme sürümünü ayır
-- Son doğrulanmış ana yayın: **1.9.40**, https://otopatron.pages.dev/ . Dağıtım: https://e5228597.otopatron.pages.dev/ . build_tools/live-v1940.json son yerel doğrulama kanıtıdır; devralırken canlı sürümü tekrar oku.
-- **1.9.41 henüz ana yayına alınmadı.** https://theme-preview.otopatron.pages.dev/ ilk test paketini gösteriyor. Bu paketteki dönen araçların görselleri hatalı; kullanıcı bunu bildirdi.
-- Verilen Godot kaynak ZIP'i test bağlantısından daha günceldir: hatalı elle çizilmiş 3B benzeri araç kodu, gerçek Kenney GLB modellerini kullanan CarTurntable ile değiştirilmiştir. Son kaynak için 48 galeri denetimi geçti. Ancak yeni gerçek modeller tarayıcıda görsel olarak doğrulanmadı; son web paketinin de bu düzeltmeden sonra yeniden oluşturulması gerekir.
-- Kaynağın sürüm etiketi 1.9.41 olması yayınlandığı anlamına gelmez. Mevcut web ZIP'ini son kaynakla aynı sanma.
-
+- Son doğrulanmış ana yayın **1.9.41**: https://otopatron.pages.dev/ . Değişmez yayın https://93a7de4e.otopatron.pages.dev/ . Kontrol_Raporlari/live-v1941.json yayın kanıtıdır.
+- Gerçek Kenney GLB modelleri ve Claude sınıf eşleme patch'i yeniden export edilip yayınlandı; tarayıcıda menü ve platformlar görüntülendi. Fiziksel telefon performansı ölçülmedi.
+- Oyun kodu commit'i 6f0308ed71da0ade7368975e88ebe8fd3525e1c8; cloud/galeri-iyilestirme dalı. PR #1 hâlâ açık, main daha eski olabilir. Dalı güncellemeden işe başlama.
+- Güncel eksikler, yeni araçlar, görünüm ve oynanış paketleri için Claude_Gelistirme_Plani.md esas alınır. İlk paket taşınabilir layout_audit çıktısıdır.
 ## 2. Oyun ve teknik yapı
 OtoPatron, Ramazan ÖZKESKİN ve Sudenur GÜVEZ imzalı mobil araç galerisi simülatörüdür. Godot 4.7.2 / GDScript, GL Compatibility, 540×960 referans alanı, telefon ve bilgisayar düzeni. Web yayını Cloudflare Pages, proje otopatron, production branch main. Oyun HTML/JavaScript ile yeniden yazılmış değildir.
 
