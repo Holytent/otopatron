@@ -55,4 +55,17 @@ Gece mavisi/turkuaz/altın paleti koruyarak zemin, platform ışıkları, tabela
 
 ## Kısa görev istemi
 
-Güncel cloud/galeri-iyilestirme dalından başla. otopatron-dev skill'ini kullan. CLAUDE.md ve bu plandaki P0 bölümünü oku. Önceki bekleyen P0 istemini tekrar göndermeden sürdür. Bu teslimde yalnız taşınabilir layout_audit çıktısını tamamla ve ilgili kontrolün gerçek sonuçlarıyla ayrı patch/commit ver. Sonra P1'e geçilecek. Kodları küçük paketlerde geliştir; rapor kısa olsun, tüm depoyu gereksiz yere okumadan ilgili dosyaları kullan.
+Güncel cloud/galeri-iyilestirme dalından başla. otopatron-dev skill'ini kullan. CLAUDE.md ve bu plandaki mevcut paket bölümünü oku. P0 tamamlandı; tekrar yapma. P1 görevi f69cbc5 başlangıcından gönderildi ve çalışıyor. Codex her teslimi kontrol edip entegre eder; ardından güncel SHA ile sıradaki küçük paketi gönderir. Kodları küçük paketlerde geliştir; rapor kısa olsun, tüm depoyu gereksiz yere okumadan ilgili dosyaları kullan.
+
+## Kullanıcının büyütme ve takip talimatı — 9 Ekim 2026
+
+Kullanıcı oyunun daha kaliteli bir galeri oyunu hâline gelmesini, arayüz ve görünümün geliştirilmesini, yeni araçlar ve oynanışın genişletilmesini, işin Codex tarafından takip edilmesini ve yayımlanan her güncellemenin bağlantısıyla bildirilmesini istedi. Bu planın P2–P4 paketleri sırayla yürütülecek; hepsi tek büyük değişiklikte kodlanmayacak.
+
+1. P1: mevcut performans teslimini tamamla; çalışırken yeni görevle kesilme.
+2. P2 ilk teslim: en az üç ayırt edilebilir araç görünümü, platforma doğru oturma ve tutarlı sergileme. Sonraki ayrı teslim: eksik araç sınıflarında yeni kurgu modelleri ve dengeli katalog genişlemesi.
+3. P3 küçük teslimler: galeri zemin/platform/ışık/tabela; personelin görünür çalışma hareketleri; menü, düğme ve bilgi hiyerarşisinin bütünlüğü. Gece mavisi/turkuaz/altın korunur. Mevcut ses ayarı ve sessize alma davranışı korunur; ses geri bildirimi düzenlenirse ayrı küçük teslimde, tarayıcıda kullanıcı etkileşimi sonrasında çalışacak şekilde kontrol edilir.
+4. P4 küçük teslimler: mevcut sistemlere bağlı haftalık hedefler, rakiple satış yarışı ve koleksiyon/başarı ilerlemesi. Mevcut benzer özellikleri önce incele; ödül tekrarını ve kayıt kaybını engelle.
+
+Her teslimde önceki tamamlanan işler yeniden yapılmaz. Claude kodu ve görselleri üretir; Codex inceleme, test, kaynak entegrasyonu ve yayın doğrulamasını yürütür. GitHub'a her kabul edilen paket için ayrı commit ve kısa kontrol raporu eklenir. İşin durumu `Devir/Gelistirme_Takibi.md` içinde güncellenir. Oyuncuya yalnız gerçekten yayımlanmış yeni sürüm ve doğrulanmış bağlantı gönderilir.
+
+Kullanım limiti dolarsa sayfada görünen yenilenme saatine göre devam planlanır. Limit kalkınca yarım kalan görev son tamamlanan adımdan sürdürülür. Kalan token bilinmiyorsa tahmin edilmez. Plan bitince yeni kapsam kullanıcıyla belirlenir.

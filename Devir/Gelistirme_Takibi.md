@@ -1,0 +1,16 @@
+# OtoPatron geliştirme takibi
+
+Son güncelleme: 9 Ekim 2026. Bu belge kabul edilen teslimlerde yenilenir; bekleyen işler tamamlanmış sayılmaz.
+
+| Paket | Durum | Kaynak / kanıt | Yayın |
+| --- | --- | --- | --- |
+| İlk araç sergileme düzeltmesi | Entegre edildi | 6f0308e, CLAUDE_PATCH_ENTEGRASYON.md | 1.9.41 |
+| P0 taşınabilir layout audit | Windows kontrolü geçti, entegre edildi | 54c6adc, f69cbc5, CLAUDE_P0_ENTEGRASYON.md | Yalnız geliştirme aracı; yeni yayın yok |
+| P1 akıcılık ve kaynak kullanımı | Claude çalışıyor; 1/3/5 araç ölçümü sürüyor | Başlangıç f69cbc5; henüz patch teslimi yok | Henüz yayımlanmadı |
+| P2 araç çeşitliliği ve sergileme | Sırada | Claude_Gelistirme_Plani.md | Henüz yayımlanmadı |
+| P3 galeri ve arayüz görünümü | Sırada | Claude_Gelistirme_Plani.md | Henüz yayımlanmadı |
+| P4 hedefler ve ilerleme | Sırada | Claude_Gelistirme_Plani.md | Henüz yayımlanmadı |
+
+Doğrulanmış canlı oyun: **1.9.41**, https://otopatron.pages.dev/
+
+Codex: koordinasyon, teslim kontrolü, entegrasyon ve yayın. Claude: yeni kod/görsel geliştirmeler. Her seferinde tek küçük paket. Fiziksel cihazda ölçüm yoksa mobil performans doğrulandı denmez.
