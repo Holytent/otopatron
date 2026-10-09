@@ -13,6 +13,16 @@ const MODELS := {
  "van": preload("res://art/cars3d/van.glb")
 }
 var model_id: String = "karya_nova"
+## The database only knows "passenger"; class decides which of the available models is shown,
+## so cars of different segments no longer all appear as the same sedan.
+static func kind_for(id: String) -> String:
+ var body: String = CarDB.body_type(id)
+ if body != "passenger": return body if MODELS.has(body) else "sedan"
+ match str(CarDB.model(id).get("cls", "mid")):
+  "eco": return "hatchback"
+  "lux": return "coupe"
+  "com": return "van"
+ return "sedan"
 var angle: float = 0.0
 var _tick: int = -1
 var _view: SubViewport
@@ -54,7 +64,7 @@ func _ready() -> void:
  _add_platform(world)
  _pivot = Node3D.new()
  world.add_child(_pivot)
- var kind: String = CarDB.body_type(model_id)
+ var kind: String = kind_for(model_id)
  var scene: PackedScene = MODELS.get(kind, MODELS["sedan"])
  var vehicle: Node3D = scene.instantiate()
  _pivot.add_child(vehicle)

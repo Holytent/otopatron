@@ -135,6 +135,10 @@ func run() -> void:
 	display._clock=1;display._animate();var turn: float=display._platforms[0].angle
 	display._clock=5;display._animate()
 	check(display._platforms[0].angle>turn,"Car model turns on platform")
+	var kinds: Dictionary = {}
+	for model in CarDB.MODELS: kinds[CarTurntable.kind_for(str(model["id"]))] = true
+	check(kinds.keys().all(func(k): return CarTurntable.MODELS.has(k)),"Every car maps to an imported showroom model")
+	check(kinds.size()>=6,"Showroom shows at least six distinct vehicle shapes")
 	display.queue_free()
 	print("LOBBY_AUDIT_COMPLETE ",checks," checks ",failures," failures")
 	get_tree().quit(1 if failures else 0)
