@@ -1,7 +1,7 @@
 # OtoPatron çalışma kuralları
 Önce Devir/OtoPatron_Cloud_Devir_Notu.md oku. Mevcut Godot4.7.2 projesinde çalış; farklı bir oyuna yeniden yazma.
-Production doğrulaması 1.9.41; canlı paket ve tarayıcı menüsü doğrulandı. Fiziksel telefon performansı ölçülmedi. Devir/Claude_Gelistirme_Plani.md güncel iş sırasıdır.
-Yeni geliştirmeleri Claude üretir; Codex teslim kontrolü ve yayın entegrasyonunu takip eder. İlk iş P0 taşınabilir layout_audit çıktısı; sonra performans, araç çeşitliliği, galeri görünümü ve oynanış paketleri.
+Production doğrulaması 1.9.42; canlı paket ve tarayıcı menüsü doğrulandı. Fiziksel telefon performansı ölçülmedi. Devir/Claude_Gelistirme_Plani.md güncel iş sırasıdır.
+Yeni geliştirmeleri Claude üretir; Codex teslim kontrolü ve yayın entegrasyonunu takip eder. P0 ve P1 tamamlandı. Sıradaki iş P2 araç çeşitliliği, sonra P3 galeri görünümü ve P4 oynanış paketleri.
 Kayıtları silme, SAVE_VERSION7 formatını keyfi değiştirme. Müşteri siparişlerini geri ekleme, oyun içinde şehir değiştirme ekleme.
 Gece mavisi/turkuaz/altın temayı koru. Menüde zaman ve gider ilerlemesin.07.00–23.00 çalışma/ücretsiz uyku/normal günlük maaşlar korunsun.
 Cloud ayrı branch/PR üretir. Production main'e doğrudan dağıtım yapmaz. Gereksiz ekonomi/hesap/ses/yükleyici değişikliği yapma.

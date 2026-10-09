@@ -55,7 +55,7 @@ Gece mavisi/turkuaz/altın paleti koruyarak zemin, platform ışıkları, tabela
 
 ## Kısa görev istemi
 
-Güncel cloud/galeri-iyilestirme dalından başla. otopatron-dev skill'ini kullan. CLAUDE.md ve bu plandaki mevcut paket bölümünü oku. P0 tamamlandı; tekrar yapma. P1 görevi f69cbc5 başlangıcından gönderildi ve çalışıyor. Codex her teslimi kontrol edip entegre eder; ardından güncel SHA ile sıradaki küçük paketi gönderir. Kodları küçük paketlerde geliştir; rapor kısa olsun, tüm depoyu gereksiz yere okumadan ilgili dosyaları kullan.
+Güncel cloud/galeri-iyilestirme dalından başla. otopatron-dev skill'ini kullan. CLAUDE.md ve bu plandaki mevcut paket bölümünü oku. P0 tamamlandı; tekrar yapma. P1 tamamlandı, Windows kontrolleri geçti ve 1.9.42 yayımlandı; CLAUDE_P1_ENTEGRASYON.md raporunu oku. Sıradaki paket P2 ilk araç görünümü teslimi. Codex her teslimi kontrol edip entegre eder; ardından güncel SHA ile sıradaki küçük paketi gönderir. Kodları küçük paketlerde geliştir; rapor kısa olsun, tüm depoyu gereksiz yere okumadan ilgili dosyaları kullan.
 
 ## Kullanıcının büyütme ve takip talimatı — 9 Ekim 2026
 
