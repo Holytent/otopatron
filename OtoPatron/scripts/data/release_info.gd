@@ -2,7 +2,7 @@ class_name ReleaseInfo
 extends RefCounted
 ## Update VERSION each release. NOTES contains at most three major player-facing
 ## changes. Omit minor fixes and technical details; never invent additions.
-const VERSION: String = "1.9.41"
+const VERSION: String = "1.9.42"
 const NOTES: Dictionary = {"tr": ["Performans iyileştirildi.", "Optimizasyon yapıldı."], "en": ["Performance improved.", "Optimizations applied."], "fr": ["Performances améliorées.", "Optimisations effectuées."], "ar": ["تحسين الأداء.", "تم تحسين اللعبة."]}
 static var _panel: Control
 
