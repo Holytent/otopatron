@@ -1,11 +1,20 @@
 extends Node
 var _main: Node
 var _report: Array = []
-const OUTPUT: String = "C:/Users/ozkes/Documents/Codex/2026-10-04/referenced-chatgpt-conversation-this-is-an/build_tools/layout_audit"
+## Output folder, first match wins: `--audit-out=<dir>` user argument, the
+## OTOPATRON_AUDIT_OUT environment variable, then a folder under user:// (safe on
+## Windows and Linux; never inside the project or a personal path).
+const DEFAULT_OUTPUT: String = "user://audit/layout_audit"
+const OUTPUT_ARG: String = "--audit-out="
+const OUTPUT_ENV: String = "OTOPATRON_AUDIT_OUT"
+var _output: String = DEFAULT_OUTPUT
 
 func run(main: Node) -> void:
 	_main = main
-	DirAccess.make_dir_recursive_absolute(OUTPUT)
+	_output = _resolve_output()
+	if not _prepare_output():
+		get_tree().quit(1)
+		return
 	await get_tree().create_timer(4.0).timeout
 	for child in UI.overlay.get_children(): child.queue_free()
 	Game.new_game("Çok Uzun Oyuncu İsmi", "34")
@@ -35,7 +44,7 @@ func run(main: Node) -> void:
 						_scan(_main._current, "finance/"+section+"/"+language+"/"+str(dimensions))
 				if language == "tr" and dimensions.x == 432 and DisplayServer.get_name() != "headless":
 					await RenderingServer.frame_post_draw
-					get_viewport().get_texture().get_image().save_png(OUTPUT + "/" + screen + ".png")
+					_save_screenshot(screen + ".png")
 	var test_car: Dictionary = Game.market[0]["car"]
 	var fee: int = Game.inspect_cost(test_car)
 	var balance: int = Game.money
@@ -80,7 +89,7 @@ func run(main: Node) -> void:
 	_scan(_main._current, "customization")
 	if DisplayServer.get_name() != "headless":
 		await RenderingServer.frame_post_draw
-		get_viewport().get_texture().get_image().save_png(OUTPUT + "/customization.png")
+		_save_screenshot("customization.png")
 	assert(not Loc.t("sort_price").contains("↑"))
 	assert(not Loc.t("sort_year").contains("↓"))
 	for overlay_child in UI.overlay.get_children(): overlay_child.queue_free()
@@ -96,11 +105,36 @@ func run(main: Node) -> void:
 	assert(_main._toast_box.get_child_count() == 1)
 	if DisplayServer.get_name() != "headless":
 		await RenderingServer.frame_post_draw
-		get_viewport().get_texture().get_image().save_png(OUTPUT + "/notice.png")
-	var file := FileAccess.open(OUTPUT + "/report.json", FileAccess.WRITE)
+		_save_screenshot("notice.png")
+	var report_path: String = _output.path_join("report.json")
+	var file := FileAccess.open(report_path, FileAccess.WRITE)
+	if file == null:
+		printerr("LAYOUT_AUDIT_FAILED report could not be written: %s (%s)" % [report_path, error_string(FileAccess.get_open_error())])
+		get_tree().quit(1)
+		return
 	file.store_string(JSON.stringify(_report, "\t"))
-	print("LAYOUT_AUDIT_COMPLETE ", _report.size())
+	file.close()
+	print("LAYOUT_AUDIT_COMPLETE ", _report.size(), " findings, output: ", _output)
 	get_tree().quit()
+
+func _resolve_output() -> String:
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with(OUTPUT_ARG) and argument.length() > OUTPUT_ARG.length():
+			return argument.substr(OUTPUT_ARG.length())
+	var from_env: String = OS.get_environment(OUTPUT_ENV).strip_edges()
+	return from_env if not from_env.is_empty() else DEFAULT_OUTPUT
+
+func _prepare_output() -> bool:
+	var error: Error = DirAccess.make_dir_recursive_absolute(_output)
+	if error != OK and not DirAccess.dir_exists_absolute(_output):
+		printerr("LAYOUT_AUDIT_FAILED output folder could not be created: %s (%s)" % [_output, error_string(error)])
+		return false
+	return true
+
+func _save_screenshot(file_name: String) -> void:
+	var error: Error = get_viewport().get_texture().get_image().save_png(_output.path_join(file_name))
+	if error != OK:
+		push_error("LAYOUT_AUDIT screenshot could not be written: %s (%s)" % [file_name, error_string(error)])
 
 func _scan(node: Node, screen: String) -> void:
 	# Road sprites enter/leave inside a clipped animation; their offscreen positions are intentional.
