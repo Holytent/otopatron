@@ -1,0 +1,134 @@
+class_name CarTurntable
+extends Control
+## A complete imported vehicle rotates as one assembly on a level display plinth.
+## Viewports render only when the owning visible lobby advances the angle.
+const MODELS := {
+ "sedan": preload("res://art/cars3d/sedan.glb"),
+ "hatchback": preload("res://art/cars3d/hatchback-sports.glb"),
+ "suv": preload("res://art/cars3d/suv.glb"),
+ "coupe": preload("res://art/cars3d/sedan-sports.glb"),
+ "sport": preload("res://art/cars3d/race.glb"),
+ "pickup": preload("res://art/cars3d/truck-flat.glb"),
+ "truck": preload("res://art/cars3d/truck.glb"),
+ "van": preload("res://art/cars3d/van.glb")
+}
+var model_id: String = "karya_nova"
+var angle: float = 0.0
+var _tick: int = -1
+var _view: SubViewport
+var _pivot: Node3D
+var model_bounds: AABB
+
+func _ready() -> void:
+ mouse_filter = Control.MOUSE_FILTER_IGNORE
+ _view = SubViewport.new()
+ _view.size = Vector2i(320, 220)
+ _view.transparent_bg = true
+ _view.own_world_3d = true
+ _view.render_target_update_mode = SubViewport.UPDATE_ONCE
+ _view.msaa_3d = Viewport.MSAA_2X
+ add_child(_view)
+ var world := Node3D.new()
+ _view.add_child(world)
+ var environment := WorldEnvironment.new()
+ var env := Environment.new()
+ env.background_mode = Environment.BG_COLOR
+ env.background_color = Color(0, 0, 0, 0)
+ env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+ env.ambient_light_color = Color("d6e5ef")
+ env.ambient_light_energy = 0.75
+ environment.environment = env
+ world.add_child(environment)
+ var light := DirectionalLight3D.new()
+ light.rotation_degrees = Vector3(-45, -35, 0)
+ light.light_energy = 1.1
+ light.shadow_enabled = false
+ world.add_child(light)
+ var camera := Camera3D.new()
+ camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+ camera.size = 3.65
+ camera.position = Vector3(3.8, 2.9, 4.8)
+ world.add_child(camera)
+ camera.look_at(Vector3(0, 0.45, 0))
+ camera.current = true
+ _add_platform(world)
+ _pivot = Node3D.new()
+ world.add_child(_pivot)
+ var kind: String = CarDB.body_type(model_id)
+ var scene: PackedScene = MODELS.get(kind, MODELS["sedan"])
+ var vehicle: Node3D = scene.instantiate()
+ _pivot.add_child(vehicle)
+ model_bounds = _bounds(vehicle, Transform3D.IDENTITY)
+ var scale_factor: float = 2.65 / maxf(model_bounds.size.x, model_bounds.size.z)
+ vehicle.scale = Vector3.ONE * scale_factor
+ vehicle.position = Vector3(-model_bounds.get_center().x, -model_bounds.position.y, -model_bounds.get_center().z) * scale_factor
+ vehicle.position.y += 0.085
+ _disable_shadows(vehicle)
+ var picture := TextureRect.new()
+ picture.texture = _view.get_texture()
+ picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+ picture.stretch_mode = TextureRect.STRETCH_SCALE
+ picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+ add_child(picture)
+ picture.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+ _pivot.rotation.y = angle
+
+func _bounds(node: Node3D, parent_transform: Transform3D) -> AABB:
+ var transform_here: Transform3D = parent_transform * node.transform
+ var bounds := AABB()
+ var found: bool = false
+ if node is MeshInstance3D:
+  bounds = transform_here * node.get_aabb()
+  found = true
+ for child in node.get_children():
+  if child is Node3D:
+   var part: AABB = _bounds(child, transform_here)
+   if part.size.length_squared() > 0:
+    bounds = bounds.merge(part) if found else part
+    found = true
+ return bounds
+
+func _disable_shadows(node: Node) -> void:
+ if node is GeometryInstance3D:
+  node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+ for child in node.get_children():
+  _disable_shadows(child)
+
+func _material(color: Color) -> StandardMaterial3D:
+ var material := StandardMaterial3D.new()
+ material.albedo_color = color
+ material.roughness = 0.8
+ return material
+
+func _add_platform(world: Node3D) -> void:
+ var plinth := MeshInstance3D.new()
+ var mesh := CylinderMesh.new()
+ mesh.top_radius = 1.65
+ mesh.bottom_radius = 1.65
+ mesh.height = 0.08
+ mesh.radial_segments = 48
+ plinth.mesh = mesh
+ plinth.position.y = 0.04
+ plinth.material_override = _material(Color("172d42"))
+ plinth.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+ world.add_child(plinth)
+ for radius in [1.6, 1.47]:
+  var ring := MeshInstance3D.new()
+  var torus := TorusMesh.new()
+  torus.inner_radius = radius - 0.016
+  torus.outer_radius = radius + 0.016
+  torus.rings = 48
+  torus.ring_segments = 6
+  ring.mesh = torus
+  ring.position.y = 0.087
+  ring.material_override = _material(Color("edc16b") if radius > 1.5 else Color("59ddce"))
+  ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+  world.add_child(ring)
+
+func set_angle(value: float) -> void:
+ angle = value
+ var tick: int = int(value * 100)
+ if tick == _tick or not is_instance_valid(_pivot): return
+ _tick = tick
+ _pivot.rotation.y = angle
+ _view.render_target_update_mode = SubViewport.UPDATE_ONCE

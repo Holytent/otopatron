@@ -1,0 +1,1 @@
+OtoPatron/project.godot dosyasini Godot 4.7.2 ile import edin. Once Devir/OtoPatron_Cloud_Devir_Notu.md dosyasini okuyun. Kaynak 1.9.41 adayi; yeni 3B modellerin web gorsel kontrolu ve yeniden export islemi bekliyor. Production yayin degildir. Gizli anahtar ve oturum bilgileri eklenmedi.

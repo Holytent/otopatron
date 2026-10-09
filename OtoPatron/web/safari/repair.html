@@ -1,0 +1,25 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OtoPatron açılış onarımı</title></head>
+<body style="margin:0;background:#f7f5f5;color:#25252e;font:16px system-ui;padding:36px 24px;text-align:center">
+<img src="index.512x512.png" width="96" height="96" style="border-radius:24px" alt="OtoPatron">
+<h1>OtoPatron</h1><p id="status">Açılış önbelleği güncelleniyor…</p><p>Oyun kayıtların silinmez.</p><a href="./" style="color:#c32b3c">Oyuna dön</a>
+<script>
+(async () => {
+  const status = document.getElementById('status');
+  try {
+    if (!('serviceWorker' in navigator)) { location.replace('./'); return; }
+    // Remove only downloaded engine/page caches; keep game saves in IndexedDB.
+    for(const key of await caches.keys()) if(key.startsWith('OtoPatron')) await caches.delete(key);
+    const registration = await navigator.serviceWorker.register('index.service.worker.js', {scope:'./',updateViaCache:'none'});
+    await registration.update();
+    const worker = registration.installing || registration.waiting;
+    if (worker && worker.state !== 'activated') await new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => reject(new Error('Lütfen bu sayfayı yeniden aç.')),20000);
+      worker.addEventListener('statechange', () => {
+        if (worker.state === 'activated') { clearTimeout(timeout); resolve(); }
+        if (worker.state === 'redundant') { clearTimeout(timeout); reject(new Error('Güncelleme indirilemedi.')); }
+      }); worker.postMessage('claim');
+    });
+    status.textContent = 'Açılış güncellendi. Oyuna geçiliyor…'; location.replace('./');
+  } catch(error) { status.textContent = 'Onarım tamamlanamadı: ' + error.message; }
+})();
+</script></body></html>

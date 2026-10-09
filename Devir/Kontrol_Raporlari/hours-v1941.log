@@ -1,0 +1,26 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS New shop opens at 07:00
+PASS Starting slots
+PASS Legacy boolean staff remains hired
+PASS Capacity blocks extra hire without charge
+PASS Expanded gallery hires second cleaner
+PASS Two cleaners pay two wages
+PASS Dismiss removes one employee
+PASS Hire two guards in expanded gallery
+PASS Guard limit rejects without charge
+PASS Two guards have daily wages
+PASS Legacy security retained despite smaller gallery
+PASS Staff and guards survive save migration
+PASS Time stops at 23:00
+PASS Closed time does not auto advance
+PASS Night rejects paid waiting
+PASS Ledger records all salaries
+PASS Free sleep reaches next 07:00
+PASS Sleep only deducts regular daily bills
+PASS Repeated sleep cannot double charge
+PASS Old after-midnight save opens without extra daily bill
+PASS Paid waiting clips to closing time and quote
+PASS Sleep button visible when closed
+PASS Sleep button survives theme rebuild
+HOURS_AUDIT_COMPLETE 23 checks 0 failures

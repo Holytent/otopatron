@@ -1,0 +1,55 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS Opening menu pauses game simulation
+PASS Saved sign displayed
+PASS Saved night and luxury scene loaded
+PASS Owned staff visible in menu scene
+PASS Owned car plus two ambient exterior cars
+PASS Exterior traffic moves by transform
+PASS Arrival moves forward with nose facing right
+PASS Displayed vehicle remains parked
+PASS Departure moves forward
+PASS Visitor walks at visible speed
+PASS Visitor stops to inspect vehicle
+PASS Walking animates retained limbs
+PASS Interior shows owned vehicle
+PASS Interior includes waiting customer
+PASS Map contains gallery market and bank destinations
+PASS Touring views does not change money time inventory or saves
+PASS Responsive scene exterior(320, 680)
+PASS Responsive scene interior(320, 680)
+PASS Responsive scene map(320, 680)
+PASS Responsive scene exterior(432, 850)
+PASS Responsive scene interior(432, 850)
+PASS Responsive scene map(432, 850)
+PASS Responsive scene exterior(1280, 720)
+PASS Responsive scene interior(1280, 720)
+PASS Responsive scene map(1280, 720)
+PASS Map routes to market and resumes game
+PASS Menu settings keep simulation paused
+PASS Return to game restores simulation
+PASS Empty showroom displays cars without sample caption
+PASS Sample display never creates owned inventory
+PASS Balance updates retain animation nodes and phase
+PASS Purchase replaces samples with owned car
+PASS Live visitors match actual buyers
+PASS Buyer interaction forwards original visit
+PASS Live gallery updates day lighting
+PASS Repeated views keep node count bounded
+PASS New game contains single owner name field
+PASS Saved owner name appears in original form
+PASS Cancelled editor restores original name
+PASS Owner name has readable form contrast
+PASS City list shows name without plate
+PASS Plate prefix removed
+PASS Gem balance shows complete count without plus
+PASS Cash display reduced
+PASS Night blue and gold palette applied
+PASS Three rotating showroom platforms
+PASS Flat showroom sprites replaced by rotating models
+PASS Car model turns on platform
+LOBBY_AUDIT_COMPLETE 48 checks 0 failures
+WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

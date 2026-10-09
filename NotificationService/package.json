@@ -1,0 +1,1 @@
+{"name":"otopatron-notifications","private":true,"type":"module","dependencies":{"web-push":"3.6.7"},"devDependencies":{"wrangler":"^4.0.0"},"scripts":{"deploy":"wrangler deploy","keys":"web-push generate-vapid-keys --json"}}

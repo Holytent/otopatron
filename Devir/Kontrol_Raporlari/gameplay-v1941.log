@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS Neglected rescue generated
+PASS Reopening cannot reroll offers
+PASS Rescue debits exact price
+PASS Double purchase blocked
+PASS Rescue ownership and goal tracked
+PASS Rescue persists after reload
+PASS All restoration costs match budget and investment
+PASS Restoration goal requires all four parts
+PASS Named rival offers normal atomic trade
+PASS Daily rival trade cannot repeat
+PASS Rival bargain starts active
+PASS Expired rival offer cannot charge
+PASS Insufficient funds preserve offer
+PASS Full garage blocks rescue purchase
+PASS rescuetr320
+PASS rivaltr320
+PASS rescueen320
+PASS rivalen320
+PASS rescuear320
+PASS rivalar320
+PASS rescuefr320
+PASS rivalfr320
+PASS rescuetr432
+PASS rivaltr432
+PASS rescueen432
+PASS rivalen432
+PASS rescuear432
+PASS rivalar432
+PASS rescuefr432
+PASS rivalfr432
+PASS rescuetr1280
+PASS rivaltr1280
+PASS rescueen1280
+PASS rivalen1280
+PASS rescuear1280
+PASS rivalar1280
+PASS rescuefr1280
+PASS rivalfr1280
+PASS Visible buyers linked to visits
+PASS Drive dialog fits 320 by 680 screen
+PASS Drive status remains a single bounded line
+PASS Steering and throttle respond
+PASS Brake stops vehicle
+PASS Cancel leaves offer untouched and unlocks controls
+PASS Complete course returns to negotiation
+PASS Repeat result cannot farm offers
+PASS Closing dialogue releases pause
+PASS New pages: 360 repeated transitions without node growth
+PASS New pages: bounded resource use
+GAMEPLAY_AUDIT_COMPLETE checks=49 failures=0

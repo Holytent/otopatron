@@ -1,0 +1,132 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS Yeni oyun, şehir ve ilk pazar
+PASS Araç değeri: karya_pico
+PASS Araç değeri: orvan_dot
+PASS Araç değeri: aldora_kesa
+PASS Araç değeri: aldora_brix
+PASS Araç değeri: tivora_lune
+PASS Araç değeri: veltra_orin
+PASS Araç değeri: brenor_city
+PASS Araç değeri: veltra_taro
+PASS Araç değeri: tivora_grano
+PASS Araç değeri: kordan_zeph
+PASS Araç değeri: lavin_station
+PASS Araç değeri: kordan_mavo
+PASS Araç değeri: sorvik_bora
+PASS Araç değeri: marlen_sora
+PASS Araç değeri: kordan_rally
+PASS Araç değeri: marlen_drift
+PASS Araç değeri: veltra_cabra
+PASS Araç değeri: sorvik_hale
+PASS Araç değeri: nyvo_ion
+PASS Araç değeri: auren_vesta
+PASS Araç değeri: dalmor_rex
+PASS Araç değeri: marlen_gran
+PASS Araç değeri: auren_kyro
+PASS Araç değeri: nyvo_arc
+PASS Araç değeri: sorvik_ridge
+PASS Araç değeri: dalmor_volt
+PASS Araç değeri: auren_solis
+PASS Araç değeri: veltra_regalia
+PASS Araç değeri: valtorre_gt
+PASS Araç değeri: kordan_atlas
+PASS Araç değeri: aurelia_prestige
+PASS Araç değeri: nyvo_halo
+PASS Araç değeri: zephyra_one
+PASS Araç değeri: imperion_royale
+PASS Araç değeri: ravena_rova
+PASS Araç değeri: aldora_trail
+PASS Araç değeri: karya_bora
+PASS Araç değeri: orvan_trek
+PASS Araç değeri: nyvo_terra
+PASS Araç değeri: auren_stride
+PASS Araç değeri: dalmor_peak
+PASS Araç değeri: imperion_range
+PASS Araç değeri: brenor_cargo
+PASS Araç değeri: dalmor_haul
+PASS Araç değeri: dalmor_titan
+PASS Araç değeri: orvan_pulse
+PASS Araç değeri: valtorre_sprint
+PASS Araç değeri: sorvik_canyon
+PASS Araç değeri: karya_nova
+PASS Araç değeri: tivora_aven
+PASS Araç değeri: orvan_vera
+PASS Araç değeri: ravena_koru
+PASS Araç değeri: valtorre_solis
+PASS Araç değeri: brenor_work
+PASS Alış tutarı bakiyeden tam düşüyor
+PASS Aynı araç ikinci kez satın alınamıyor
+PASS Negatif alış fiyatı reddediliyor
+PASS Yetersiz bakiye ile alış reddediliyor
+PASS Dolu garajda alış para harcamıyor
+PASS Ekspertiz ücreti ve parça bilgisi
+PASS Aynı ekspertiz ikinci ücret almıyor
+PASS Kaporta onarım ücreti ve durumu
+PASS Onarılmış parça tekrar ücret almıyor
+PASS Yıkama ücreti ve temizlik
+PASS Temiz araç tekrar ücret almıyor
+PASS Satış, masraflar ve net kazanç
+PASS Aynı satış tekrar para veya XP vermiyor
+PASS Negatif satış fiyatı reddediliyor
+PASS Negatif bekleme para üretmiyor
+PASS Seviye para ödülü alınıyor
+PASS Buluttan yüklenen para ödülü tekrar alınamıyor
+PASS Buluttan yüklenen kasa tekrar açılamıyor
+PASS Kredi alınıyor
+PASS Kredi toplamı teklif edilen tutara eşit
+PASS Yüzde 40 ödenmeden ikinci kredi alınamıyor
+PASS Günlük kredi taksiti
+PASS Erken kredi kapatma
+PASS Kapanmış kredi ikinci kez ödenmiyor
+PASS Tefeci borcu tam bakiye ile ödeniyor
+PASS Mağaza paketi tam bakiye ile alınıyor
+PASS Vadeli hesap açılışı
+PASS Vade sonunda anapara ve faiz bir kez ödeniyor
+PASS Ödenmiş vadeli hesap tekrar çekilemiyor
+PASS Erken vadeli hesap kapatma kesintisi
+PASS Negatif yatırım miktarı reddediliyor
+PASS Yatırım alışı
+PASS Olmayan yatırım satılamıyor
+PASS Yatırımda aynı fiyat alış-satış komisyonları korunuyor
+PASS Günlük hediye yalnızca bir kez
+PASS Aynı anda yalnızca bir eğitim
+PASS Eğitim bir kez tamamlanıp ödül veriyor
+PASS Başlangıç şehri değiştirilemiyor
+PASS Gerçek dosyaya kayıt ve yükleme
+PASS Geçersiz ana kayıt yerine sağlam yedek yükleniyor
+PASS Yedekten iyileşen kayıt yeniden bozulsa da önceki yedek korunuyor
+PASS Eski kayıtta eksik istatistik ve yatırım alanları tamamlanıyor
+PASS Satılabilir aracı olan oyuncu sıfır nakitte sıfırlanmıyor
+PASS Varlığı olan eski kayıttaki iflas sayacı kaldırılıyor
+PASS Sahip olunmayan araca bakım yapılmıyor
+PASS Kredi vadesi boyunca toplam ödeme teklifle eşit: 3 ay
+PASS Kredi vadesi boyunca toplam ödeme teklifle eşit: 6 ay
+PASS Kredi vadesi boyunca toplam ödeme teklifle eşit: 12 ay
+PASS Kredi vadesi boyunca toplam ödeme teklifle eşit: 24 ay
+PASS Kredi vadesi boyunca toplam ödeme teklifle eşit: 36 ay
+WARNING: Cihaz kaydı tamamlanamadı; yedek korundu
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] save_game (res://scripts/autoload/game.gd:1614)
+       [1] buy_listing (res://scripts/autoload/game.gd:577)
+       [2] _run (res://scripts/dev/deep_audit.gd:196)
+WARNING: Cihaz kaydı tamamlanamadı; yedek korundu
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] save_game (res://scripts/autoload/game.gd:1614)
+       [1] finalize_sale (res://scripts/autoload/game.gd:890)
+       [2] _run (res://scripts/dev/deep_audit.gd:201)
+PASS 200 alış-satış ve JSON kayıt dönüşümünde bakiye/kâr/araç sayıları korunuyor
+PASS Tam yeni kayıt doğrulamadan geçiyor
+PASS Bozuk kayıt reddediliyor: money
+PASS Bozuk kayıt reddediliyor: cars
+PASS Bozuk kayıt reddediliyor: loans
+PASS Bozuk kayıt reddediliyor: stats
+PASS Bozuk kayıt reddediliyor: finance_prices
+PASS Bozuk kayıt reddediliyor: investments
+PASS Bozuk kayıt reddediliyor: deposits
+PASS Bozuk kayıt reddediliyor: bankrupt_state
+PASS Bozuk kayıt reddediliyor: active_training
+PASS Ekspertiz ücreti ve sonucu hemen kalıcı kaydediliyor
+DEEP_AUDIT_COMPLETE 117 checks; 0 failures

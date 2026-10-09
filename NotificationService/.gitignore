@@ -1,0 +1,6 @@
+node_modules/
+.npm-cache/
+.wrangler/
+.env*
+vapid-keys.json
+wrangler-secrets.json

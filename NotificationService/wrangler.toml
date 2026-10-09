@@ -1,0 +1,22 @@
+name = "otopatron-notifications"
+main = "src/worker.js"
+compatibility_date = "2026-10-07"
+compatibility_flags = ["nodejs_compat", "enable_nodejs_http_modules"]
+
+[[kv_namespaces]]
+binding = "PLAYERS"
+id = "7a5c703452ca413f8b910d1bc9bb315d"
+
+[triggers]
+crons = ["* * * * *"]
+
+[vars]
+ALLOWED_ORIGIN = "https://otopatron.pages.dev"
+VAPID_SUBJECT = "https://otopatron.pages.dev"
+
+[observability]
+enabled = true
+
+[observability.traces]
+enabled = true
+head_sampling_rate = 0.01

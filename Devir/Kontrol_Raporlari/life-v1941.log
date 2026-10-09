@@ -1,0 +1,54 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS Old saves start without skill bonuses
+PASS No XP without hired worker
+PASS Actual cleaning grants XP
+PASS Repeated clean grants no XP
+PASS Actual repair grants XP
+PASS Repeated repair grants no XP
+PASS Mechanic level lowers real quote
+PASS XP and rank have strict caps
+PASS Repair discount bounded at 32 percent
+PASS Experience affects interest without hidden wages
+PASS Last dismissal resets team mastery
+PASS Maximum washing discount 70 percent
+PASS Master cleaner completes extra hourly jobs
+PASS Rain dirt affects only outdoor vehicles
+PASS Repeated weather tick cannot double dirt
+PASS Sunshine creates no extra dirt
+PASS Staff XP and outdoor choice survive save load
+PASS Existing sale still completes
+PASS Sale cannot be duplicated
+PASS Weekly lot stable across page rebuilds
+PASS Auction lot validates
+PASS Too low bid has no charge
+PASS Unaffordable bid rejected without advancing auction
+PASS Full garage blocks bid
+PASS Closed shop blocks auction purchase
+PASS Rivals respond while money remains untouched
+PASS Rival budgets and bidding round survive reload
+PASS Winning bid only creates claim, no charge
+PASS Insufficient balance preserves uncollected win
+PASS Collection charges once and adds owned vehicle
+PASS Repeated collection and bidding cannot duplicate purchase
+PASS Auction price becomes real vehicle acquisition cost
+PASS Next game week creates new lot
+PASS Withdrawing closes weekly lot without charge
+PASS Incomplete nested auction data safely replaced
+PASS New copy has language fallback tr
+PASS New copy has language fallback en
+PASS New copy has language fallback ar
+PASS New copy has language fallback fr
+PASS New feature page builds auction
+PASS New feature page builds staff
+PASS New feature page builds home
+PASS New feature page builds garage
+PASS New feature page builds car
+PASS Auction rebuild retains scroll position
+PASS Scrollable sale receipt builds with delivery
+PASS Delivery shows keys and customer
+PASS Delivery departs without mutating economy
+PASS Negotiation feedback changes with reply
+PASS Rain has bounded retained particles
+PASS Fog requires no moving particles
+LIFE_AUDIT_COMPLETE 51 checks; 0 failures
