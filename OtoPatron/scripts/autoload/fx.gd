@@ -10,7 +10,9 @@ var _music: AudioStreamPlayer
 var _visibility_timer: float = 0.0
 var _music_started: bool = false
 
-func _exit_tree() -> void:
+## Stops every player and drops the streams. The audio server releases a stopped playback on its next mix step,
+## so a caller that quits right afterwards should wait briefly (see `release_audio`).
+func stop_all() -> void:
 	if is_instance_valid(_music):
 		_music.stop()
 		_music.stream = null
@@ -20,6 +22,13 @@ func _exit_tree() -> void:
 			player.stream = null
 	_streams.clear()
 	_players.clear()
+
+func release_audio() -> void:
+	stop_all()
+	await get_tree().create_timer(0.25).timeout
+
+func _exit_tree() -> void:
+	stop_all()
 
 
 func _ready() -> void:

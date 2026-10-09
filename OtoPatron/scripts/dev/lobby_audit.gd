@@ -141,4 +141,5 @@ func run() -> void:
 	check(kinds.size()>=6,"Showroom shows at least six distinct vehicle shapes")
 	display.queue_free()
 	print("LOBBY_AUDIT_COMPLETE ",checks," checks ",failures," failures")
+	await Fx.release_audio()
 	get_tree().quit(1 if failures else 0)
