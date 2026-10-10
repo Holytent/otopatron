@@ -34,3 +34,13 @@ Bu nedenle teslim üretime kabul edilmedi. Gerçek web export, tarayıcı küç�
 ## En son görev
 
 Mesaj 25'te kullanıcı mevcut 57 aracın görünümünün baştan yenilenmesini, ID ve fiyatların aynı kalmasını istemiş. Mesaj 26'da yalnız SVG renderer hazırlığına ait iki komut ve kullanım bitince duraklatıldığı bilgisi var; tamamlanmış patch yok. Devam et düğmesine tıklama otomatik onay incelemesince, limitin kalktığı doğrulanmadığı gerekçesiyle reddedildi. Devam gönderildiği iddia edilmedi; yeni reset saati/tarihi görünmediği için tahmin edilmedi.
+
+## Yayın isteğinin ayrıca doğrulanması
+
+Kullanıcının son yazışmaları tekrar okundu: mesaj21 sürüm notu ve yeni sürüm yayını talebi; mesaj22 Claude'un yayın yetkisi/proje iş bölümü nedeniyle yayını Codex'e bıraktığı yanıt; mesaj23–25 mevcut57araç tasarım yenilemesi isteği. Mesaj26'da CairoSVG kurulum/render testi ve uzak dal/sürüm okuması dışında yenileme teslimi yok. Son iş tamamlanmış sayılmadı.
+
+P2b-4-release-1.9.44.patch ayrıca indirildi; commit d9518b6 ve bundle içeriğiyle uyumlu. ReleaseInfo, release.json, update-client ve shell sürüm/PCK/ikon adları1.9.44 için tutarlı. Bunlar yalnız kaynak hazırlığı; tamamlanmış web export veya Cloudflare dağıtımı kanıtı değiller. Yayın yetkisi için Claude'un yeni bir işlem yapması gerekmiyor; Codex'in mevcut yayın iş akışı kullanılacak.
+
+11Ekim2026bu ek kontrolde ana URL yeniden indirildi: HTML1.9.43, release.json1.9.43, index-release-v1943.pck ve launch-bundle-bb3369e1802a6411.js yerel yayımlanmış paket hashleriyle birebir eşleşti. Kanıt build_tools/live-v1943.json güncellendi. Yeni bir yayın yapılmadı; ana URL değişmedi.
+
+Kullanıcı Claude kullanımı açılınca devam için açık onayını yineledi. Sonraki tek devamda mevcut57araç işine kaldığı yerden devam edilmesi, kontrol raporundaki Vento gövde/şerit tutarlılığı bulgularının teslimde giderilmesi ve eski ID/fiyatların korunması takip edilecek. Kullanım açılmadan mesaj gönderilmeyecek; devamın gönderildiği görünür mesajla doğrulanacak. Ardından ilgili test, web export, önizleme ve ana yayın kontrolleri Codex tarafından tamamlanacak.
