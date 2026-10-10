@@ -69,3 +69,6 @@ Kullanıcı oyunun daha kaliteli bir galeri oyunu hâline gelmesini, arayüz ve 
 Her teslimde önceki tamamlanan işler yeniden yapılmaz. Claude kodu ve görselleri üretir; Codex inceleme, test, kaynak entegrasyonu ve yayın doğrulamasını yürütür. GitHub'a her kabul edilen paket için ayrı commit ve kısa kontrol raporu eklenir. İşin durumu `Devir/Gelistirme_Takibi.md` içinde güncellenir. Oyuncuya yalnız gerçekten yayımlanmış yeni sürüm ve doğrulanmış bağlantı gönderilir.
 
 Kullanım limiti dolarsa sayfada görünen yenilenme saatine göre devam planlanır. Limit kalkınca yarım kalan görev son tamamlanan adımdan sürdürülür. Kalan token bilinmiyorsa tahmin edilmez. Plan bitince yeni kapsam kullanıcıyla belirlenir.
+
+
+10 Ekim güncel durum: P2 ilk görünüm kabul edildi ve 1.9.43 canlı yayımlandı. Windows lobi62/0, deep117/0, closeup27/0; galeri tamamlandı. Sonraki ayrı küçük iş P2 katalog genişlemesi. Yeni girdilerin ID/kayıt/ekonomi uyumluluğu korunmalı; yeni sanat, lisans ve CarLook tablosu tutarlı olmalı. P3 için dar sahnede küçük araçlar/personel örtüşmesi ve açık sayfada viewport ölçüsü güncellemesi gözlemleri duruyor. Ayrıntı CLAUDE_P2_ENTEGRASYON.md.
