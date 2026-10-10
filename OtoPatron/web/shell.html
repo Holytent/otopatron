@@ -18,19 +18,19 @@ button{width:100%;min-height:56px;border:0;border-radius:16px;background:#087d83
 .credits{position:absolute;bottom:14px;left:20px;right:20px;text-align:center;font-size:11px;line-height:1.65;color:#77717a}.hint{font-size:12px;border:1px solid #e6dddd;border-radius:14px;padding:14px}.error{color:#ae2536;white-space:pre-line}noscript{position:absolute;inset:0;padding:30px;background:#fff;z-index:5}
 @media(max-height:500px){#launch{padding:12px 24px 66px}.logo{width:64px;height:64px;margin-bottom:10px}.logo img{width:64px;height:64px}h1{font-size:24px}#message{margin:8px 0}button{min-height:44px;margin:10px 0}.credits{bottom:8px}}
 </style>
-<link id="-gd-engine-icon" rel="icon" type="image/png" href="app-icon-v1941.png" />
-<link rel="apple-touch-icon" href="app-icon-v1941.png"/>
+<link id="-gd-engine-icon" rel="icon" type="image/png" href="app-icon-v1943.png" />
+<link rel="apple-touch-icon" href="app-icon-v1943.png"/>
 <link rel="manifest" href="index.manifest.json">
 
 </head>
 <body>
 <div id="play"><canvas id="canvas" tabindex="0">Tarayıcınız oyun ekranını desteklemiyor.</canvas>
 <section id="launch"><div class="card">
-<div class="logo"><img src="app-icon-v1941.png" alt="OtoPatron" width="104" height="104" style="display:block;border-radius:26px"></div>
+<div class="logo"><img src="app-icon-v1943.png" alt="OtoPatron" width="104" height="104" style="display:block;border-radius:26px"></div>
 <h1>OTO<span>PATRON</span></h1><div class="subtitle">GALERİ SİMÜLATÖR</div>
 <p id="message" role="status" aria-live="polite">Galerin seni bekliyor.</p><progress id="progress" aria-label="Oyun yükleniyor"></progress>
 <button id="start">OYUNU AÇ</button>
-</div><footer class="credits">Ramazan ÖZKESKİN · Sudenur GÜVEZ<br>V1.9.41</footer>
+</div><footer class="credits">Ramazan ÖZKESKİN · Sudenur GÜVEZ<br>V1.9.43</footer>
 </section></div>
 <noscript>Oyunu açmak için Safari ayarlarından JavaScript’i etkinleştirin.</noscript>
 
@@ -68,7 +68,7 @@ if('serviceWorker' in navigator&&window.isSecureContext){
 const config = $GODOT_CONFIG;
 config.serviceWorker="";
 // A new pack name bypasses a previously cached PWA build without deleting saves.
-config.mainPack = 'index-release-v1941.pck';
+config.mainPack = 'index-release-v1943.pck';
 config.fileSizes[config.mainPack] = config.fileSizes['index.pck'];
 let engine;let watchdog;let lastProgress=-1;function armWatchdog(){clearTimeout(watchdog);watchdog=setTimeout(()=>{message.textContent="İndirme durdu. İnternetini kontrol edip yeniden dene.";start.disabled=false;start.textContent="YENİDEN DENE";start.onclick=()=>location.reload();},120000);}
 const start = document.getElementById('start');

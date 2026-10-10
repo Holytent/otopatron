@@ -1,5 +1,5 @@
 (() => {
-  const current='1.9.41';let banner;
+  const current='1.9.43';let banner;
   async function check(){
     if(document.hidden||banner)return;
     try{const r=await fetch('release.json',{cache:'no-store'});if(!r.ok)return;const release=await r.json();if(!release.version||release.version===current)return;
