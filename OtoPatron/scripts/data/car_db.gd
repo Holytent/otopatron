@@ -61,6 +61,9 @@ const MODELS: Array = [
 	{"id": "ravena_koru", "make": "Ravena", "name": "Koru", "cls": "suv", "body": "suv", "base": 650000, "min_level": 7, "tier": 4, "years": [2015, 2025]},
 	{"id": "valtorre_solis", "make": "Valtorre", "name": "Solis", "cls": "sport", "body": "sport", "base": 1350000, "min_level": 12, "tier": 5, "years": [2015, 2025]},
 	{"id": "brenor_work", "make": "Brenor", "name": "Work", "cls": "com", "body": "pickup", "base": 320000, "min_level": 3, "tier": 2, "years": [2015, 2025]},
+	{"id": "lavin_corso", "make": "Lavin", "name": "Corso", "cls": "mid", "body": "passenger", "base": 470000, "min_level": 5, "tier": 3, "years": [2010, 2025]},
+	{"id": "marlen_vento", "make": "Marlen", "name": "Vento", "cls": "sport", "body": "sport", "base": 780000, "min_level": 9, "tier": 4, "years": [2012, 2025]},
+	{"id": "brenor_duty", "make": "Brenor", "name": "Duty", "cls": "com", "body": "passenger", "base": 390000, "min_level": 5, "tier": 3, "years": [2011, 2025]},
 ]
 
 const CLASS_KEYS: Array = ["eco", "mid", "suv", "com", "sport", "ev", "lux"]

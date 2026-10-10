@@ -62,6 +62,9 @@ const LOOKS: Dictionary = {
 	"ravena_koru": ["#5d7d76", 5],
 	"valtorre_solis": ["#b34c49", 6],
 	"brenor_work": ["#52647f", 7],
+	"lavin_corso": ["#3f7d8a", 7],
+	"marlen_vento": ["#3f5fa8", 6],
+	"brenor_duty": ["#c9a53f", 5],
 }
 
 
