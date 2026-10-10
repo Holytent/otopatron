@@ -198,6 +198,8 @@ func run() -> void:
 	check(CarTurntable.kind_for("veltra_taro")==CarTurntable.kind_for("nyvo_ion") and first_body.material_override.get_shader_parameter("paint_color")!=second_body.material_override.get_shader_parameter("paint_color"),"Two cars sharing a body shape get different paint")
 	var hub_nodes: Array=first_stand._pivot.get_child(0).get_children().filter(func(c): return c is MeshInstance3D and not String(c.name).begins_with("wheel") and c.name!="body")
 	check(hub_nodes.size()==1 and hub_nodes[0].mesh.get_surface_count()==1,"Four wheel hubs are merged into one mesh")
+	var picture: TextureRect=first_stand.get_children().filter(func(c): return c is TextureRect)[0]
+	check(picture.stretch_mode==TextureRect.STRETCH_KEEP_ASPECT_CENTERED,"Showroom render keeps its aspect ratio on narrow screens")
 	first_stand.queue_free(); second_stand.queue_free()
 	display.queue_free()
 	print("LOBBY_AUDIT_COMPLETE ",checks," checks ",failures," failures")

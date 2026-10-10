@@ -93,7 +93,8 @@ func _ready() -> void:
  var picture := TextureRect.new()
  picture.texture = _view.get_texture()
  picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
- picture.stretch_mode = TextureRect.STRETCH_SCALE
+ # Keep the 320x220 aspect: the lobby sizes platforms per axis, so a narrow phone layout used to squash the car.
+ picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
  picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
  add_child(picture)
  picture.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
