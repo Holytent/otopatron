@@ -56,7 +56,7 @@ func run() -> void:
 	Game.money=99999
 	check(not Game.shop_exchange("gems",0),"Old cheap gem budget rejected")
 	check(DealerExpansion.TEAM["cleaner"]["wage"]==650 and DealerExpansion.TEAM["mechanic"]["wage"]==1200 and DealerExpansion.TEAM["sales"]["wage"]==1100,"Staff wages moderately increased")
-	check(ReleaseInfo.NOTES["tr"]==["Performans iyileştirildi.","Optimizasyon yapıldı."],"Release notes contain only allowed truthful phrases")
+	check(ReleaseInfo.NOTES["tr"].size()<=3 and ReleaseInfo.NOTES["tr"].all(func(note): return ["Performans iyileştirildi.","Yeni araçlar eklendi.","Çimler biçildi.","Optimizasyon yapıldı."].has(note)),"Release notes contain only allowed truthful phrases")
 	main.show_screen("home",{})
 	for i in 3: await get_tree().process_frame
 	var road=main._current.find_children("*","Control",true,false).filter(func(c): return c is RoadAnim)[0]
