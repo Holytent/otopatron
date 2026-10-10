@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Regenerates OtoPatron/scripts/data/car_look.gd from the car SVG art.
 
-Paint = the flat stop of the "paint" gradient, spokes = number of spoke strokes per wheel.
+Paint = the flat stop of the "paint" gradient, spokes = number of spoke strokes drawn from one wheel centre.
 Run from the repository root:  python3 tools/gen_car_look.py
 """
 import re
@@ -13,7 +13,9 @@ for cid in ids:
     svg = open(f"{ROOT}art/cars/{cid}.svg", encoding="utf-8").read()
     paint = re.search(r'<linearGradient id="paint"[^>]*>(.*?)</linearGradient>', svg, re.S).group(1)
     colour = [c for o, c in re.findall(r'<stop(?: offset="([\d.]+)")? stop-color="(#[0-9a-fA-F]{6})"', paint) if o == ".18"][0].lower()
-    spokes = len(re.findall(r'<path d="M[\d.]+ [\d.]+ L[\d.]+ [\d.]+" stroke="#', svg)) // 2
+    # spokes = strokes that start at the centre of the first rim circle
+    cx, cy = re.search(r'<circle cx="(\d+)" cy="(\d+)" r="\d+" fill="url\(#rim\)"/>', svg).groups()
+    spokes = len(re.findall(rf'<path d="M{cx} {cy} L[\d.]+ [\d.]+" stroke=', svg))
     rows.append(f'\t"{cid}": ["{colour}", {spokes}],')
 path = ROOT + "scripts/data/car_look.gd"
 text = open(path, newline="", encoding="utf-8").read()
