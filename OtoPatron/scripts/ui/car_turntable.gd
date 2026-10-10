@@ -12,6 +12,19 @@ const MODELS := {
  "truck": preload("res://art/cars3d/truck.glb"),
  "van": preload("res://art/cars3d/van.glb")
 }
+const PAINT_SHADER: Shader = preload("res://shaders/car_paint.gdshader")
+## Paint cluster of each imported model: hue in degrees, mean brightness of the paint, and whether
+## the paint is the near-white cab (flat-bed truck) instead of a saturated colour.
+const PAINT_PROFILES := {
+ "sedan": {"hue": 9.0, "value": 0.90},
+ "hatchback": {"hue": 153.0, "value": 0.68},
+ "suv": {"hue": 152.0, "value": 0.66},
+ "coupe": {"hue": 10.0, "value": 0.92},
+ "sport": {"hue": 8.0, "value": 0.88},
+ "pickup": {"hue": 0.0, "value": 0.93, "white": true},
+ "truck": {"hue": 154.0, "value": 0.65},
+ "van": {"hue": 222.0, "value": 0.80}
+}
 var model_id: String = "karya_nova"
 ## The database only knows "passenger"; class decides which of the available models is shown,
 ## so cars of different segments no longer all appear as the same sedan.
@@ -76,6 +89,7 @@ func _ready() -> void:
  vehicle.position = Vector3(-model_bounds.get_center().x, -model_bounds.position.y, -model_bounds.get_center().z) * scale_factor
  vehicle.position.y += 0.085
  _disable_shadows(vehicle)
+ _apply_look(vehicle, kind)
  var picture := TextureRect.new()
  picture.texture = _view.get_texture()
  picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -105,6 +119,55 @@ func _disable_shadows(node: Node) -> void:
   node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
  for child in node.get_children():
   _disable_shadows(child)
+
+## Gives the model the paint and wheel style of its own catalog entry (see CarLook).
+func _apply_look(vehicle: Node3D, kind: String) -> void:
+ if not CarLook.has_look(model_id): return
+ var profile: Dictionary = PAINT_PROFILES.get(kind, PAINT_PROFILES["sedan"])
+ var paint := ShaderMaterial.new()
+ paint.shader = PAINT_SHADER
+ paint.set_shader_parameter("paint_color", Vector3(CarLook.paint(model_id).r, CarLook.paint(model_id).g, CarLook.paint(model_id).b))
+ var base := Color.from_hsv(float(profile["hue"]) / 360.0, 1.0, 1.0)
+ var mean: float = (base.r + base.g + base.b) / 3.0
+ paint.set_shader_parameter("base_direction", Vector3(base.r - mean, base.g - mean, base.b - mean).normalized())
+ paint.set_shader_parameter("ref_value", float(profile["value"]))
+ paint.set_shader_parameter("white_paint", 1.0 if profile.get("white", false) else 0.0)
+ var hub_mesh := CylinderMesh.new()
+ hub_mesh.top_radius = 0.17
+ hub_mesh.bottom_radius = 0.17
+ hub_mesh.height = 0.03
+ hub_mesh.radial_segments = CarLook.spokes(model_id)
+ hub_mesh.rings = 1
+ # The four wheel hubs are merged into one mesh so they cost a single extra draw call per redraw.
+ var hubs := SurfaceTool.new()
+ hubs.begin(Mesh.PRIMITIVE_TRIANGLES)
+ for part in vehicle.get_children():
+  if not part is MeshInstance3D: continue
+  if String(part.name).begins_with("wheel"):
+   hubs.append_from(hub_mesh, 0, part.transform * _hub_transform(part))
+  else:
+   _paint_parts(part, paint)
+ var hub_node := MeshInstance3D.new()
+ hub_node.mesh = hubs.commit()
+ hub_node.material_override = _material(CarLook.RIM)
+ hub_node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+ vehicle.add_child(hub_node)
+
+func _paint_parts(node: Node, paint: ShaderMaterial) -> void:
+ if node is MeshInstance3D and not String(node.name).begins_with("wheel"):
+  var original: Material = node.mesh.surface_get_material(0)
+  if original is StandardMaterial3D and original.albedo_texture:
+   var own: ShaderMaterial = paint.duplicate()
+   own.set_shader_parameter("colormap", original.albedo_texture)
+   node.material_override = own
+ for child in node.get_children():
+  _paint_parts(child, paint)
+
+## Outer face of a wheel, in the wheel's own space: a flat disc whose axis is the axle.
+func _hub_transform(wheel: MeshInstance3D) -> Transform3D:
+ var box: AABB = wheel.get_aabb()
+ var outward: float = -1.0 if box.get_center().x + wheel.position.x < 0.0 else 1.0
+ return Transform3D(Basis.from_euler(Vector3(0, 0, PI / 2.0)), box.get_center() + Vector3(outward * (box.size.x * 0.5 + 0.004), 0, 0))
 
 func _material(color: Color) -> StandardMaterial3D:
  var material := StandardMaterial3D.new()

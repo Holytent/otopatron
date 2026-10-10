@@ -183,6 +183,22 @@ func run() -> void:
 			break
 	if not resumed: print("Showroom stayed paused; open dialogs: ",UI.overlay.get_child_count()," visible: ",display.is_visible_in_tree())
 	check(resumed,"Showroom resumes after the tab returns")
+	# Per-car paint and wheel style (CarLook) reaches the 3D showroom without touching catalog data.
+	check(CarDB.MODELS.size()==54 and CarDB.MODELS.all(func(m): return CarLook.has_look(str(m["id"]))),"Every catalog car keeps its id and has a paint and wheel style")
+	var looks_seen: Dictionary = {}
+	for model in CarDB.MODELS: looks_seen[[CarTurntable.kind_for(str(model["id"])),CarLook.paint(str(model["id"])).to_html(false),CarLook.spokes(str(model["id"]))]] = true
+	check(looks_seen.size()>=40,"Catalog shows at least 40 distinct body, paint and wheel looks")
+	var first_stand:=CarTurntable.new(); first_stand.model_id="veltra_taro"
+	var second_stand:=CarTurntable.new(); second_stand.model_id="nyvo_ion"
+	display.add_child(first_stand); display.add_child(second_stand)
+	await get_tree().process_frame
+	var first_body: MeshInstance3D=first_stand._pivot.get_child(0).get_node("body")
+	var second_body: MeshInstance3D=second_stand._pivot.get_child(0).get_node("body")
+	check(first_body.material_override is ShaderMaterial and second_body.material_override is ShaderMaterial,"Showroom body uses the car paint material")
+	check(CarTurntable.kind_for("veltra_taro")==CarTurntable.kind_for("nyvo_ion") and first_body.material_override.get_shader_parameter("paint_color")!=second_body.material_override.get_shader_parameter("paint_color"),"Two cars sharing a body shape get different paint")
+	var hub_nodes: Array=first_stand._pivot.get_child(0).get_children().filter(func(c): return c is MeshInstance3D and not String(c.name).begins_with("wheel") and c.name!="body")
+	check(hub_nodes.size()==1 and hub_nodes[0].mesh.get_surface_count()==1,"Four wheel hubs are merged into one mesh")
+	first_stand.queue_free(); second_stand.queue_free()
 	display.queue_free()
 	print("LOBBY_AUDIT_COMPLETE ",checks," checks ",failures," failures")
 	await Fx.release_audio()
