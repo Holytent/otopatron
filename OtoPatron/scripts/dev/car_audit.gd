@@ -41,5 +41,5 @@ func _run() -> void:
 	if DisplayServer.get_name() != "headless":
 		await RenderingServer.frame_post_draw
 		get_tree().root.get_texture().get_image().save_png("C:/Users/ozkes/Documents/Codex/2026-10-04/referenced-chatgpt-conversation-this-is-an/build_tools/vehicles-v1918.png")
-	print("CAR_AUDIT_COMPLETE: 54 textures, 8 silhouettes, dirt/wash/body-repair stages")
+	print("CAR_AUDIT_COMPLETE: ",CarDB.MODELS.size()," textures, dirt/wash/body-repair stages")
 	get_tree().quit()

@@ -183,6 +183,8 @@ func _ready() -> void:
 		add_child(load("res://scripts/dev/actors_audit.gd").new())
 	elif "--orders-audit" in OS.get_cmdline_user_args():
 		add_child(load("res://scripts/dev/orders_audit.gd").new())
+	elif "--catalog-audit" in OS.get_cmdline_user_args():
+		add_child(load("res://scripts/dev/catalog_audit.gd").new())
 	elif "--car-audit" in OS.get_cmdline_user_args():
 		add_child(load("res://scripts/dev/car_audit.gd").new())
 	elif "--gallery-audit" in OS.get_cmdline_user_args():

@@ -184,7 +184,7 @@ func run() -> void:
 	if not resumed: print("Showroom stayed paused; open dialogs: ",UI.overlay.get_child_count()," visible: ",display.is_visible_in_tree())
 	check(resumed,"Showroom resumes after the tab returns")
 	# Per-car paint and wheel style (CarLook) reaches the 3D showroom without touching catalog data.
-	check(CarDB.MODELS.size()==54 and CarDB.MODELS.all(func(m): return CarLook.has_look(str(m["id"]))),"Every catalog car keeps its id and has a paint and wheel style")
+	check(CarDB.MODELS.size()>=54 and CarDB.MODELS.all(func(m): return CarLook.has_look(str(m["id"]))),"Every catalog car keeps its id and has a paint and wheel style")
 	var looks_seen: Dictionary = {}
 	for model in CarDB.MODELS: looks_seen[[CarTurntable.kind_for(str(model["id"])),CarLook.paint(str(model["id"])).to_html(false),CarLook.spokes(str(model["id"]))]] = true
 	check(looks_seen.size()>=40,"Catalog shows at least 40 distinct body, paint and wheel looks")
