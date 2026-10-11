@@ -68,6 +68,18 @@ const LOOKS: Dictionary = {
 }
 
 
+## Cars whose showroom body differs from the one their catalog body type implies. Marlen Vento is a closed
+## sports coupe in its art, so it uses the closed sports body instead of the open-wheel racer.
+const BODY_OVERRIDES: Dictionary = {"marlen_vento": "coupe"}
+
+## Side stripes shown in the 2D art and on the 3D body: id: [[colour, height on the body 0..1, thickness 0..1], ...].
+## The first stripe is the main one. tools/gen_fleet_svg.py reads the colours from here.
+const STRIPES: Dictionary = {
+	"lavin_corso": [["#d9b45f", 0.5, 0.07]],
+	"marlen_vento": [["#eef5fa", 0.54, 0.1], ["#e2474a", 0.43, 0.05]],
+}
+
+
 static func has_look(id: String) -> bool:
 	return LOOKS.has(id)
 
@@ -78,3 +90,7 @@ static func paint(id: String, fallback: Color = Color.WHITE) -> Color:
 
 static func spokes(id: String) -> int:
 	return int(LOOKS[id][1]) if LOOKS.has(id) else 6
+
+
+static func stripes(id: String) -> Array:
+	return STRIPES.get(id, [])

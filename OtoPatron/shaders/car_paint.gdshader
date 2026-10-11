@@ -13,9 +13,21 @@ uniform float ref_value = 0.9;
 uniform float white_paint = 0.0;
 // The flat 2D art is evenly lit; side faces in 3D receive less light, so the paint is lifted a little.
 uniform float paint_gain = 1.1;
+// Up to two horizontal side stripes on the paint. x: height in model space, y: half thickness (0 = off).
+uniform vec4 stripe_a = vec4(0.0);
+uniform vec3 stripe_a_color = vec3(1.0);
+uniform vec4 stripe_b = vec4(0.0);
+uniform vec3 stripe_b_color = vec3(1.0);
+varying vec3 model_position;
+varying vec3 model_normal;
 
 vec3 srgb_to_linear(vec3 c) {
 	return c * (c * (c * 0.305306011 + 0.682171111) + 0.012522878);
+}
+
+void vertex() {
+	model_position = VERTEX;
+	model_normal = NORMAL;
 }
 
 void fragment() {
@@ -29,7 +41,11 @@ void fragment() {
 	float white = step(spread, 0.07 * mx) * step(0.86, mx);
 	float mask = mix(saturated, white, white_paint);
 	vec3 tinted = min(paint_color * paint_gain, vec3(1.0)) * clamp(mx / ref_value, 0.6, 1.15);
-	ALBEDO = srgb_to_linear(mix(c, tinted, mask));
+	vec3 painted = mix(c, tinted, mask);
+	float side = step(0.55, abs(model_normal.x)) * mask;
+	painted = mix(painted, stripe_b_color, side * step(0.0001, stripe_b.y) * step(abs(model_position.y - stripe_b.x), stripe_b.y));
+	painted = mix(painted, stripe_a_color, side * step(0.0001, stripe_a.y) * step(abs(model_position.y - stripe_a.x), stripe_a.y));
+	ALBEDO = srgb_to_linear(painted);
 	ROUGHNESS = 1.0;
 	METALLIC = 0.0;
 }

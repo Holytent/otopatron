@@ -29,6 +29,7 @@ var model_id: String = "karya_nova"
 ## The database only knows "passenger"; class decides which of the available models is shown,
 ## so cars of different segments no longer all appear as the same sedan.
 static func kind_for(id: String) -> String:
+ if CarLook.BODY_OVERRIDES.has(id) and MODELS.has(CarLook.BODY_OVERRIDES[id]): return str(CarLook.BODY_OVERRIDES[id])
  var body: String = CarDB.body_type(id)
  if body != "passenger": return body if MODELS.has(body) else "sedan"
  match str(CarDB.model(id).get("cls", "mid")):
@@ -160,9 +161,20 @@ func _paint_parts(node: Node, paint: ShaderMaterial) -> void:
   if original is StandardMaterial3D and original.albedo_texture:
    var own: ShaderMaterial = paint.duplicate()
    own.set_shader_parameter("colormap", original.albedo_texture)
+   if node.name == "body": _set_stripes(own, node.get_aabb())
    node.material_override = own
  for child in node.get_children():
   _paint_parts(child, paint)
+
+## Side stripes of the catalog art (CarLook.STRIPES) as bands at a fraction of the body height.
+func _set_stripes(material: ShaderMaterial, box: AABB) -> void:
+ var stripes: Array = CarLook.stripes(model_id)
+ for index in mini(stripes.size(), 2):
+  var stripe: Array = stripes[index]
+  var key: String = "stripe_a" if index == 0 else "stripe_b"
+  var color := Color(str(stripe[0]))
+  material.set_shader_parameter(key, Vector4(box.position.y + box.size.y * float(stripe[1]), box.size.y * float(stripe[2]) * 0.5, 0.0, 0.0))
+  material.set_shader_parameter(key + "_color", Vector3(color.r, color.g, color.b))
 
 ## Outer face of a wheel, in the wheel's own space: a flat disc whose axis is the axle.
 func _hub_transform(wheel: MeshInstance3D) -> Transform3D:

@@ -142,13 +142,21 @@ T["van"] = tpl("van",
     front_lip='<path d="M554 232 L584 232" stroke="#0b141a" stroke-width="8" opacity=".9"/>')
 
 
+def stripe_colours(cid):
+    """Stripe colours from CarLook.STRIPES (the 3D showroom reads the same table)."""
+    text = open(ROOT + "scripts/data/car_look.gd", encoding="utf-8").read()
+    m = re.search(rf'"{cid}": \[(\[.*?\])\],', text)
+    return re.findall(r'"(#[0-9a-fA-F]{6})"', m.group(1)) if m else []
+
+
 def accent_for(cid, cls):
     """Small per-car details so cars of the same body do not look alike."""
+    colours = stripe_colours(cid)
     if cid == "lavin_corso":
-        return '<path d="M30 192 Q280 186 615 201" fill="none" stroke="#d9b45f" stroke-width="3" opacity=".9"/>'
+        return f'<path d="M30 192 Q280 186 615 201" fill="none" stroke="{colours[0]}" stroke-width="3" opacity=".9"/>'
     if cid == "marlen_vento":
-        return ('<path d="M30 205 L612 205" fill="none" stroke="#eef5fa" stroke-width="6" opacity=".92"/>'
-                '<path d="M30 216 L612 216" fill="none" stroke="#e2474a" stroke-width="2.5"/>')
+        return (f'<path d="M30 205 L612 205" fill="none" stroke="{colours[0]}" stroke-width="6" opacity=".92"/>'
+                f'<path d="M30 216 L612 216" fill="none" stroke="{colours[1]}" stroke-width="2.5"/>')
     if cls == "lux":
         return '<path d="M40 181 Q300 173 585 184" fill="none" stroke="#e6edf1" stroke-width="2.4" opacity=".85"/>'
     if cls == "ev":

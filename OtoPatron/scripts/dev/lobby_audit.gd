@@ -200,6 +200,15 @@ func run() -> void:
 	check(hub_nodes.size()==1 and hub_nodes[0].mesh.get_surface_count()==1,"Four wheel hubs are merged into one mesh")
 	var picture: TextureRect=first_stand.get_children().filter(func(c): return c is TextureRect)[0]
 	check(picture.stretch_mode==TextureRect.STRETCH_KEEP_ASPECT_CENTERED,"Showroom render keeps its aspect ratio on narrow screens")
+	var vento_stand:=CarTurntable.new(); vento_stand.model_id="marlen_vento"
+	var corso_stand:=CarTurntable.new(); corso_stand.model_id="lavin_corso"
+	display.add_child(vento_stand); display.add_child(corso_stand)
+	await get_tree().process_frame
+	var vento_paint: ShaderMaterial=vento_stand._pivot.get_child(0).get_node("body").material_override
+	var corso_paint: ShaderMaterial=corso_stand._pivot.get_child(0).get_node("body").material_override
+	check(CarTurntable.kind_for("marlen_vento")=="coupe" and CarTurntable.MODELS["coupe"]!=CarTurntable.MODELS["sport"],"Vento uses the closed sports body, not the open-wheel racer")
+	check(vento_paint.get_shader_parameter("stripe_a").y>0.0 and vento_paint.get_shader_parameter("stripe_b").y>0.0 and corso_paint.get_shader_parameter("stripe_a").y>0.0 and (first_body.material_override.get_shader_parameter("stripe_a")==null or first_body.material_override.get_shader_parameter("stripe_a").y==0.0),"Corso and Vento stripes reach the 3D body; other cars have none")
+	vento_stand.queue_free(); corso_stand.queue_free()
 	first_stand.queue_free(); second_stand.queue_free()
 	display.queue_free()
 	print("LOBBY_AUDIT_COMPLETE ",checks," checks ",failures," failures")

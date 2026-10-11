@@ -68,7 +68,8 @@ func _run() -> void:
 		check(int(model["base"]) >= bases.min() and int(model["base"]) <= bases.max(), id + ": price sits inside its class range")
 		check(int(model["min_level"]) >= levels.min() and int(model["min_level"]) <= levels.max(), id + ": unlock level sits inside its class range")
 		check(absi(int(nearest["tier"]) - int(model["tier"])) <= 1 and absi(int(nearest["min_level"]) - int(model["min_level"])) <= 3, id + ": tier and level match the nearest priced original car")
-	check(CarTurntable.kind_for("brenor_duty") == "van" and CarTurntable.kind_for("marlen_vento") == "sport" and CarTurntable.kind_for("lavin_corso") == "sedan", "New cars map to van, sport and sedan showroom bodies")
+	check(CarTurntable.kind_for("brenor_duty") == "van" and CarTurntable.kind_for("marlen_vento") == "coupe" and CarTurntable.kind_for("lavin_corso") == "sedan", "New cars map to van, closed sports coupe and sedan showroom bodies")
+	check(CarLook.BODY_OVERRIDES.keys().all(func(id): return ids.has(id) and CarTurntable.MODELS.has(CarLook.BODY_OVERRIDES[id])) and CarLook.STRIPES.keys().all(func(id): return ids.has(id) and CarLook.STRIPES[id].size() <= 2), "Showroom body overrides and stripes refer to real cars and models")
 	check(CarPortrait._wheels("brenor_duty") == Vector3(147, 480, 42) and CarPortrait._wheels("lavin_corso") == Vector3(147, 480, 42) and CarPortrait._wheels("marlen_vento") == Vector3(150, 483, 42), "New art matches the dirt and damage wheel positions")
 	# Pricing: same rules as the original cars.
 	Game.new_game("Katalog", "34")
