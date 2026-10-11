@@ -19,3 +19,9 @@ Codex: koordinasyon, teslim kontrolü, entegrasyon ve yayın. Claude: yeni kod/g
 
 ## 11 Ekim 2026 — 57 araç teslimi
 Claude mesaj28 / 8a88d9b teslimi indirildi. Windows catalog27/0,closeup27/0,lobby62/0,deep120/0,fix16/0; fix kapanış kaynak uyarısı sürüyor. 57 SVG yenilendi, 3B gövdeler aynı. Vento gövde ve şerit tutarsızlığı nedeniyle yayın kabulü bekliyor. Ayrıntı: Kontrol_Raporlari/CLAUDE_57_ARAC_KONTROL.md. Düzeltme gönderimi otomatik onay incelemesince kota açılmasının pozitif UI kanıtı olmadığı için reddedildi; mesaj gönderilmedi. Üretim1.9.43 değişmedi.
+
+## 11 Ekim 2026 — 1.9.44 yerel önizleme hazır, uzak yayın engeli
+
+Son kullanıcı isteğiyle tamamlanan57SVG ve üç katalog aracı cloud/galeri-iyilestirme / PR#1 dalına ayrı commitlerle entegre edildi; oyun HEAD6f029b7. Aktif kaynak aynı, Godot web export ve yerel paket doğrulaması geçti.390x844 menü/pazar/ilan detayı ve1440x900 ilan detayı gerçek tarayıcıda görüldü. Yerel önizleme http://127.0.0.1:8944/ bu bilgisayarda çalışıyor.
+
+Cloudflare Preview1ef2db82 yüklendi; pages.dev DNS/HTTPS erişim hatası nedeniyle uzak hashler doğrulanamadı ve ana üretime dağıtılmadı. Son doğrulanmış canlı1.9.43. Vento3Bgövde/şerit düzeltmesi mesaj29 ile bir kez gönderildi; mesaj30 gerçek limitte yarım. UI19:00 yenilenme gösteriyor; mevcut otomasyon19:01 tek takip,15dakikalık tekrar yok. Önce kota kalkınca yarım işi bir kez devam ettir, ardından kabul/uzak yayın kontrollerini tamamla. Ayrıntı CLAUDE_57_ARAC_KONTROL.md. Fiziksel cihaz performansı ölçülmedi.
