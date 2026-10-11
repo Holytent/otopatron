@@ -16,3 +16,6 @@ Son güncelleme: 10 Ekim 2026. Bu belge kabul edilen teslimlerde yenilenir; bekl
 Doğrulanmış canlı oyun: **1.9.43**, https://otopatron.pages.dev/
 
 Codex: koordinasyon, teslim kontrolü, entegrasyon ve yayın. Claude: yeni kod/görsel geliştirmeler. Her seferinde tek küçük paket. Fiziksel cihazda ölçüm yoksa mobil performans doğrulandı denmez.
+
+## 11 Ekim 2026 — 57 araç teslimi
+Claude mesaj28 / 8a88d9b teslimi indirildi. Windows catalog27/0,closeup27/0,lobby62/0,deep120/0,fix16/0; fix kapanış kaynak uyarısı sürüyor. 57 SVG yenilendi, 3B gövdeler aynı. Vento gövde ve şerit tutarsızlığı nedeniyle yayın kabulü bekliyor. Ayrıntı: Kontrol_Raporlari/CLAUDE_57_ARAC_KONTROL.md. Düzeltme gönderimi otomatik onay incelemesince kota açılmasının pozitif UI kanıtı olmadığı için reddedildi; mesaj gönderilmedi. Üretim1.9.43 değişmedi.
