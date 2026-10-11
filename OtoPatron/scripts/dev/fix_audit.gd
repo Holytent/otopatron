@@ -67,4 +67,5 @@ func run() -> void:
 	MobileScroll._active_until=0
 	Game.flags["theft_pending"]=false
 	print("FIX_AUDIT_COMPLETE ",count," checks; ",failures," failures")
+	await Fx.release_audio()
 	get_tree().quit(1 if failures else 0)
