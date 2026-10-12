@@ -29,7 +29,22 @@ func _update_visits() -> void:
 		if is_instance_valid(label):
 			label.text = Loc.t("visit_deadline", [maxi(0, int(ceil(float(visit["expires_at"]) - Game.now_seconds())))])
 	if _visits_count != Game.visits.size() and not is_instance_valid(_root):
+		var kept_scroll: int = _scroll_position()
 		rebuild()
+		_restore_scroll(kept_scroll)
+
+
+## A customer arriving or leaving rebuilds the screen; keep the place the player had scrolled to.
+func _scroll_position() -> int:
+	var scrolls: Array = find_children("*", "ScrollContainer", true, false)
+	return int(scrolls[0].scroll_vertical) if not scrolls.is_empty() else 0
+
+
+func _restore_scroll(value: int) -> void:
+	if value <= 0: return
+	for i in 2: await get_tree().process_frame
+	var scrolls: Array = find_children("*", "ScrollContainer", true, false)
+	if is_instance_valid(self) and not scrolls.is_empty(): scrolls[0].scroll_vertical = value
 
 
 func _build() -> void:
@@ -80,7 +95,7 @@ func _kpi(parent: Node, icon: String, value: String, label: String, col: Color =
 
 func _business_overview(sc: Node) -> void:
 	var c := UI.add_card(sc, UI.C_PANEL, 18, UI.C_LINE)
-	c.add_child(UI.lbl(GalleryStyle.title(), 23, UI.C_TEXT, -1, true))
+	c.add_child(UI.lbl(GalleryStyle.title(), 23, UI.C_TEXT, HORIZONTAL_ALIGNMENT_CENTER, true))
 	UI.kv(c, Loc.t("capacity"), "%d / %d" % [Game.cars.size(), Game.garage_cap])
 	c.add_child(UI.bar(Game.cars.size(), Game.garage_cap, UI.C_ACCENT, 5))
 	var view_tabs:=UI.hbox(c,6)
