@@ -84,6 +84,7 @@ func _run_loading() -> void:
 			if not is_inside_tree():
 				return
 	_set_progress(75.0, "loading_sound")
+	CarTurntable.prewarm(self)
 	Fx.start_music()
 	await get_tree().create_timer(0.35).timeout
 	if not is_inside_tree():

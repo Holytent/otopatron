@@ -122,6 +122,23 @@ func _disable_shadows(node: Node) -> void:
  for child in node.get_children():
   _disable_shadows(child)
 
+## Renders each showroom body once off-screen, one per frame, so the paint shader, materials and the first
+## GPU upload happen while the splash is loading and not on the first tap on "Galeri içi"
+## (measured in software GL: a 1.7 s cold first frame).
+const WARM_UP_CARS := ["veltra_taro", "karya_pico", "kordan_zeph", "marlen_vento", "tivora_grano", "dalmor_haul", "brenor_duty", "marlen_drift"]
+
+static func prewarm(host: Control) -> void:
+ for id in WARM_UP_CARS:
+  if not is_instance_valid(host) or not host.is_inside_tree(): return
+  var warm := CarTurntable.new()
+  warm.model_id = id
+  warm.size = Vector2(16, 11)
+  warm.modulate.a = 0.0
+  warm.mouse_filter = Control.MOUSE_FILTER_IGNORE
+  host.add_child(warm)
+  host.get_tree().create_timer(0.6).timeout.connect(warm.queue_free)
+  await host.get_tree().process_frame
+
 ## Gives the model the paint and wheel style of its own catalog entry (see CarLook).
 func _apply_look(vehicle: Node3D, kind: String) -> void:
  if not CarLook.has_look(model_id): return

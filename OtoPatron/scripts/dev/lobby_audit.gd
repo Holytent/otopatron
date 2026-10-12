@@ -167,7 +167,9 @@ func run() -> void:
 	for i in 5: await get_tree().process_frame
 	check(display._clock==hidden_clock and display._platforms[0].angle==hidden_angle,"Hidden showroom stops advancing")
 	display.show()
-	await get_tree().process_frame
+	for i in 8:
+		await get_tree().process_frame
+		if display._clock>hidden_clock and display._platforms[0].angle!=hidden_angle: break
 	check(display._clock>hidden_clock and display._platforms[0].angle!=hidden_angle,"Showroom resumes after becoming visible")
 	Game._web_hidden=true
 	await get_tree().process_frame
@@ -209,6 +211,35 @@ func run() -> void:
 	check(CarTurntable.kind_for("marlen_vento")=="coupe" and CarTurntable.MODELS["coupe"]!=CarTurntable.MODELS["sport"],"Vento uses the closed sports body, not the open-wheel racer")
 	check(vento_paint.get_shader_parameter("stripe_a").y>0.0 and vento_paint.get_shader_parameter("stripe_b").y>0.0 and corso_paint.get_shader_parameter("stripe_a").y>0.0 and (first_body.material_override.get_shader_parameter("stripe_a")==null or first_body.material_override.get_shader_parameter("stripe_a").y==0.0),"Corso and Vento stripes reach the 3D body; other cars have none")
 	vento_stand.queue_free(); corso_stand.queue_free()
+	# Showroom cost: nothing animates outside a scroll area, and the three turntables redraw staggered at 20 Hz.
+	var scroller:=ScrollContainer.new(); scroller.position=Vector2.ZERO; scroller.size=Vector2(400,200)
+	var column:=VBoxContainer.new(); scroller.add_child(column)
+	var filler:=Control.new(); filler.custom_minimum_size=Vector2(400,320); column.add_child(filler)
+	var showroom:=LobbyScene.new(); showroom.mode="interior"; showroom.custom_minimum_size=Vector2(400,300); column.add_child(showroom)
+	add_child(scroller)
+	for i in 4: await get_tree().process_frame
+	check(showroom._platforms.size()==3 and not showroom.animation_visible(),"Showroom outside its scroll area does not animate")
+	scroller.scroll_vertical=320
+	for i in 3: await get_tree().process_frame
+	check(showroom.animation_visible(),"Showroom animates once scrolled into view")
+	showroom.set_process(false)
+	var updates:=[0,0,0]; var worst:=0; var ticks:=[]
+	# The first redraw of each turntable is due immediately; afterwards they follow their staggered slots.
+	for step in 12:
+		showroom._clock+=1.0/60.0
+		showroom._animate()
+	for platform in showroom._platforms: ticks.append(platform._tick)
+	for step in 60:
+		showroom._clock+=1.0/60.0
+		showroom._animate()
+		var changed:=0
+		for i in 3:
+			if showroom._platforms[i]._tick!=ticks[i]:
+				changed+=1; updates[i]+=1; ticks[i]=showroom._platforms[i]._tick
+		worst=maxi(worst,changed)
+	check(worst<=1,"At 60 frames per second at most one turntable redraws per frame")
+	check(updates.all(func(n): return n>=18 and n<=22),"Each turntable redraws about 20 times per second")
+	scroller.queue_free()
 	first_stand.queue_free(); second_stand.queue_free()
 	display.queue_free()
 	print("LOBBY_AUDIT_COMPLETE ",checks," checks ",failures," failures")

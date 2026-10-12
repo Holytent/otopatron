@@ -12,6 +12,11 @@ var _clock := 0.0
 var _cars: Array[TextureRect] = []
 var _workers: Array[Control] = []
 var _platforms: Array[CarTurntable]=[]
+## Each turntable redraws its 3D view every TURN_STEP seconds on a grid shifted per turntable, so a frame
+## renders at most one of the three; a slow turn looks smooth at 20 Hz.
+const TURN_STEP := 0.05
+var _turn_due: Array[float] = []
+var _scroll: ScrollContainer
 var _sign: Label
 var _backdrop: Texture2D
 var _night := false
@@ -96,6 +101,7 @@ func _build_scene() -> void:
 	_cars.clear()
 	_workers.clear()
 	_platforms.clear()
+	_turn_due.clear()
 	_night=int(snapshot.get("minute",480))>=1200 or int(snapshot.get("minute",480))<420
 	var flags: Dictionary = snapshot.get("flags",{})
 	var style: Dictionary = flags.get("gallery_style",{}) if flags.get("gallery_style",{}) is Dictionary else {}
@@ -128,6 +134,7 @@ func _build_scene() -> void:
 			platform.model_id=str(model)
 			add_child(platform)
 			_platforms.append(platform)
+			_turn_due.append(_clock)
 			sprite.hide()
 	if mode!="map":
 		var team: Variant = flags.get("team",{})
@@ -193,7 +200,15 @@ func _layout() -> void:
 			child.add_theme_font_size_override("font_size",clampi(int(size.x/31),11,17))
 	_animate()
 func animation_visible() -> bool:
-	return is_visible_in_tree() and get_global_rect().intersects(get_viewport_rect()) and not Game._web_hidden and not (is_instance_valid(UI.overlay) and UI.overlay.get_child_count()>0)
+	if not is_visible_in_tree() or Game._web_hidden or (is_instance_valid(UI.overlay) and UI.overlay.get_child_count()>0): return false
+	var area:=get_global_rect()
+	if not area.intersects(get_viewport_rect()): return false
+	# Inside a scrolled screen the part outside the scroll area is clipped, so nothing needs animating or redrawing.
+	if not is_instance_valid(_scroll):
+		var parent:=get_parent()
+		while parent!=null and not parent is ScrollContainer: parent=parent.get_parent()
+		_scroll=parent as ScrollContainer
+	return not is_instance_valid(_scroll) or area.intersects(_scroll.get_global_rect())
 func _process(delta: float) -> void:
 	if not animation_visible(): return
 	_clock+=minf(delta,.1)
@@ -216,7 +231,11 @@ func _animate() -> void:
 	for i in _platforms.size():
 		_platforms[i].position=Vector2(70+i*170,175+i%2*20)*factor
 		_platforms[i].size=Vector2(160,110)*factor
-		_platforms[i].set_angle(_clock*.30+i*.8)
+		if i<_turn_due.size() and _clock>=_turn_due[i]:
+			_platforms[i].set_angle(_clock*.30+i*.8)
+			# Next slot on a fixed grid shifted per turntable, so the three never fall on the same frame again.
+			var offset:=i*TURN_STEP/3.0
+			_turn_due[i]=(floorf((_clock-offset)/TURN_STEP)+1.0)*TURN_STEP+offset
 	for i in _workers.size():
 		var worker: Control=_workers[i]
 		var route: Dictionary=_route(i)
