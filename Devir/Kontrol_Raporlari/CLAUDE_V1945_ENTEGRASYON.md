@@ -19,3 +19,6 @@ Canlı viewport değişiminde boş/yanlış ölçekli görünüm yeniden gözlen
 ## Yayın
 
 Ana üretim yüklemesi başlatıldı. Canlı dosya eşleşmesi ayrıca kaydedilecek. Ana adres https://otopatron.pages.dev/ değişmiyor.
+
+### Doğrulanmış ana yayın
+14 Ekim2026 23:32Türkiye: üretim3be68471 https://3be68471.otopatron.pages.dev/ . Ana https://otopatron.pages.dev/ HTML1.9.45, release.json, PCK ve bundle hashleri yerelle eşleşti. PCK SHA25648a2ad17bacfdce3e606026c5b2b22d9b601ee16682e7d626e2311424f1fa09f. Kanıt build_tools/live-v1945.json; ana adres gerçek tarayıcıdaV1.9.45 gösterdi. Dal f615c0a GitHub'a push edildi; mevcut PR#1 değişiklikleri içerir.
