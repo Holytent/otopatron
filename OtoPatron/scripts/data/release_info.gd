@@ -2,8 +2,8 @@ class_name ReleaseInfo
 extends RefCounted
 ## Update VERSION each release. NOTES contains at most three major player-facing
 ## changes. Omit minor fixes and technical details; never invent additions.
-const VERSION: String = "1.9.44"
-const NOTES: Dictionary = {"tr": ["Yeni araçlar eklendi."], "en": ["New cars added."], "fr": ["Nouvelles voitures ajoutées."], "ar": ["تمت إضافة سيارات جديدة."]}
+const VERSION: String = "1.9.45"
+const NOTES: Dictionary = {"tr": ["Galeri çizim yükü azaltıldı; başlık ve kaydırma düzenlendi.", "Haftalık satış ve kâr hedefleri eklendi.", "57 araç görseli yenilendi; Corso, Vento ve Duty kataloğa eklendi."], "en": ["Reduced gallery rendering load and improved heading and scrolling.", "Added weekly sales and profit goals.", "Refreshed 57 vehicle illustrations and added Corso, Vento and Duty."]}
 static var _panel: Control
 
 static func show_if_new() -> void:
