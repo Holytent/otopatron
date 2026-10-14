@@ -1384,11 +1384,35 @@ func set_city(c: String) -> void:
 	changed.emit()
 
 
+## Pays one weekly goal once. The goal is marked as claimed before any payment, so a double tap, a reload or
+## reopening the screen can never pay it twice.
+func claim_weekly_goal(goal: String) -> Dictionary:
+	if not WeeklyGoals.IDS.has(goal): return {}
+	var saved := WeeklyGoals.state()
+	if (saved["claimed"] as Array).has(goal) or not WeeklyGoals.is_complete(goal, saved): return {}
+	(saved["claimed"] as Array).append(goal)
+	var reward := WeeklyGoals.reward(int(saved["level"]))
+	var result := {"goal": goal, "money": int(reward["money"]), "xp": int(reward["xp"]), "diamonds": 0}
+	if (saved["claimed"] as Array).size() == WeeklyGoals.IDS.size() and not bool(saved["bonus"]):
+		saved["bonus"] = true
+		result["diamonds"] = WeeklyGoals.BONUS_DIAMONDS
+	flags["weekly_goals"] = saved
+	money += int(result["money"])
+	diamonds += int(result["diamonds"])
+	add_xp(int(result["xp"]))
+	Fx.play("coin")
+	save_game()
+	changed.emit()
+	return result
+
+
 func next_goal() -> Dictionary:
 	if not pending_reward_levels().is_empty():
 		return {"key": "goal_reward", "screen": "rewards"}
 	if not visits.is_empty():
 		return {"key": "goal_visit", "screen": "garage"}
+	if WeeklyGoals.claimable_count() > 0:
+		return {"key": "goal_weekly", "screen": "rewards"}
 	if cars.is_empty():
 		return {"key": "goal_buy", "screen": "market"}
 	var unlisted := false

@@ -5,6 +5,7 @@ extends ScreenBase
 func _build() -> void:
 	UI.header(self, Loc.t("rewards_title"), "management")
 	var sc := UI.scroll_area(self)
+	_weekly_card(sc)
 	var dc := UI.add_card(sc, UI.C_PANEL2, 16, UI.C_GOLD)
 	dc.add_child(UI.lbl(Loc.t("daily_crate"), 22, UI.C_GOLD, -1, true))
 	dc.add_child(UI.lbl(Loc.t("daily_premium_hint"), 14, UI.C_MUTED))
@@ -40,6 +41,42 @@ func _build() -> void:
 		for k in keys:
 			UI.kv(hc, Loc.t("lvl_short", [int(k)]), Loc.t("reward_%s" % Game.claimed[k]), UI.C_MUTED)
 	UI.spacer(sc, 6)
+
+
+## Weekly gallery goals (WeeklyGoals): three sales goals, one reward each, claimed once per week.
+func _weekly_card(parent: Node) -> void:
+	var saved := WeeklyGoals.state()
+	var level: int = int(saved["level"])
+	var targets := WeeklyGoals.targets(level)
+	var progress := WeeklyGoals.progress()
+	var reward := WeeklyGoals.reward(level)
+	var card := UI.add_card(parent, UI.C_PANEL2, 16, UI.C_ACCENT)
+	card.add_child(UI.lbl(Loc.t("weekly_title"), 22, UI.C_ACCENT, -1, true))
+	card.add_child(UI.lbl(Loc.t("weekly_help", [WeeklyGoals.days_left()]), 14, UI.C_MUTED))
+	for id in WeeklyGoals.IDS:
+		var target: int = int(targets[id])
+		var value: int = int(progress[id])
+		var done: bool = value >= target
+		var claimed: bool = (saved["claimed"] as Array).has(id)
+		var money_goal: bool = id != "sold"
+		var row := UI.add_card(card, UI.C_PANEL, 12, UI.C_GOOD if claimed else UI.C_LINE)
+		row.add_child(UI.lbl(Loc.t("weekly_goal_" + id, [Loc.money(target) if money_goal else target]), 16, UI.C_TEXT, -1, true))
+		row.add_child(UI.bar(minf(value, target), target, UI.C_GOOD if done else UI.C_ACCENT, 10))
+		row.add_child(UI.lbl(Loc.t("weekly_progress", [Loc.money(mini(value, target)) if money_goal else mini(value, target), Loc.money(target) if money_goal else target]), 13, UI.C_MUTED))
+		if claimed:
+			row.add_child(UI.lbl(Loc.t("weekly_claimed"), 14, UI.C_GOOD, HORIZONTAL_ALIGNMENT_CENTER, true))
+		elif done:
+			row.add_child(UI.btn(Loc.t("weekly_claim", [Loc.money(int(reward["money"])), int(reward["xp"])]), "primary", func(): _claim_weekly(id), 52))
+	card.add_child(UI.lbl(Loc.t("weekly_bonus_note", [WeeklyGoals.BONUS_DIAMONDS]), 12, UI.C_MUTED))
+
+
+func _claim_weekly(id: String) -> void:
+	var result := Game.claim_weekly_goal(id)
+	if result.is_empty(): return
+	Game.toast(Loc.t("weekly_toast", [Loc.money(int(result["money"])), int(result["xp"])]), "good")
+	if int(result["diamonds"]) > 0:
+		Game.toast(Loc.t("weekly_bonus_toast", [int(result["diamonds"])]), "good")
+	rebuild()
 
 
 func _reward_card(parent: Node, l: int) -> void:
